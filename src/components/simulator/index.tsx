@@ -20,6 +20,7 @@ import { Routes } from '../../utils/routes.config';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '../../store';
 import { loadModels } from '../../store/ducks/modelType';
+import { useHistory } from 'react-router';
 
 export interface ISimulatorProps {}
 
@@ -75,13 +76,14 @@ export default function Simulator(props: ISimulatorProps) {
 
     const models = useSelector((state: ApplicationState) => state.modelTypes);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     React.useEffect(() => {
         dispatch(loadModels(false));
     }, [dispatch]);
 
     const handleClick = async (model: IModelType) => {
-        window.open(`${Routes.execution}/${model.id}`);
+        history.push(`${Routes.execution}/${model.id}`);
     };
 
     return (
@@ -145,25 +147,7 @@ export default function Simulator(props: ISimulatorProps) {
                                         >
                                             {model.name}
                                         </Typography>
-                                        {/* <Typography
-                                            variant="h6"
-                                            color="textSecondary"
-                                        >
-                                            /mo
-                                        </Typography> */}
                                     </div>
-                                    {/* <ul>
-                                        {tier.description.map((line) => (
-                                            <Typography
-                                                component="li"
-                                                variant="subtitle1"
-                                                align="center"
-                                                key={line}
-                                            >
-                                                {line}
-                                            </Typography>
-                                        ))}
-                                    </ul> */}
                                 </CardContent>
                                 <CardActions>
                                     <Button

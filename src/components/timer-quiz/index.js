@@ -236,11 +236,7 @@ export default function TimerQuiz({ onEndQuiz }) {
                     variant="outlined"
                     color="primary"
                     onClick={() =>
-                        window.open(
-                            'http://localhost:3001/api/' +
-                                imageDetails.pathImage,
-                            '_blank'
-                        )
+                        window.open(imageDetails.pathImage, '_blank')
                     }
                 >
                     Ver Modelo

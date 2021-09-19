@@ -35,7 +35,8 @@ export default function ImageQuizView({ image }: IImageQuizViewProps) {
             }}
         >
             <img
-                src={'http://localhost:3001/api/' + image.pathImage}
+                loading="lazy"
+                src={image.pathImage}
                 height="150"
                 style={{ display: 'block' }}
             />

@@ -161,10 +161,10 @@ export default function ModalImage({
                             />
                         </div>
                         <img
+                            loading="lazy"
                             src={
                                 existImage && !image
-                                    ? 'http://localhost:3001/api/' +
-                                      existImage.pathImage
+                                    ? existImage.pathImage
                                     : image?.url
                             }
                             height="300"

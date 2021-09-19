@@ -6,4 +6,5 @@ export interface IImageModel extends Document {
     modelJson: string;
     quiz: string;
     experiment: string;
+    cloudinaryId: string;
 }

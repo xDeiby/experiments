@@ -214,10 +214,8 @@ export default function ModalQuiz({
                                     }}
                                 >
                                     <img
-                                        src={
-                                            'http://localhost:3001/api/' +
-                                            imageDetails!.pathImage
-                                        }
+                                        loading="lazy"
+                                        src={imageDetails!.pathImage}
                                         width="400"
                                     />
                                 </div>
@@ -228,8 +226,7 @@ export default function ModalQuiz({
                                     color="primary"
                                     onClick={() =>
                                         window.open(
-                                            'http://localhost:3001/api/' +
-                                                imageDetails!.pathImage,
+                                            imageDetails!.pathImage,
                                             '_blank'
                                         )
                                     }
