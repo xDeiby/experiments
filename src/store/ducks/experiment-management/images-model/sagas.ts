@@ -1,4 +1,5 @@
 import {
+    createImageFailure,
     createImageSuccess,
     EActionImagesManagement,
     loadFailureImageManage,
@@ -42,7 +43,7 @@ function* createImage(action: any) {
         );
         yield put(createImageSuccess(response.data));
     } catch (error) {
-        yield put(removeImageFailure());
+        yield put(createImageFailure());
     }
 }
 

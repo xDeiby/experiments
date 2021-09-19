@@ -67,7 +67,7 @@ export default function FormManage(props: ExperimentManageProps) {
         changes: state.log_changes,
     }));
 
-    const { sections, questions, images } = form;
+    const { sections, questions } = form;
 
     // Effects
     React.useEffect(() => {
@@ -156,12 +156,7 @@ export default function FormManage(props: ExperimentManageProps) {
 
                             {/* Image Elements of quiz */}
                             {typeForm === ETypeSection.QUIZ && (
-                                <ImageQuiz
-                                    quiz={section}
-                                    image={images.data.find(
-                                        (img) => img.quiz === section.id
-                                    )}
-                                />
+                                <ImageQuiz quiz={section} />
                             )}
 
                             {/* Question Elements */}
