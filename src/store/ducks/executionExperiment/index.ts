@@ -163,7 +163,7 @@ const experimentExecutionReducer: Reducer<
                     ...state,
                     data: {
                         ...state.data,
-                        quiz: change_alternative(
+                        quizzes: change_alternative(
                             state.data.quizzes,
                             question_m
                         ),
@@ -174,7 +174,7 @@ const experimentExecutionReducer: Reducer<
                     ...state,
                     data: {
                         ...state.data,
-                        survey: change_alternative(
+                        surveys: change_alternative(
                             state.data.surveys,
                             question_m
                         ),
@@ -194,7 +194,7 @@ const experimentExecutionReducer: Reducer<
                 ...state,
                 data: {
                     ...state.data,
-                    quiz: state.data.quizzes.reduce<IFormElements[]>(
+                    quizzes: state.data.quizzes.reduce<IFormElements[]>(
                         (elements, element) => {
                             if (element.section.id === quiz_m.id) {
                                 return [

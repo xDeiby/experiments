@@ -13,6 +13,7 @@ export interface IStepModel {
 
 export interface ISubStep {
     init: number;
+    timeInit: number;
     step: number;
     next: number;
     limit: number;

@@ -1,55 +1,16 @@
 import React from 'react';
 import {
     DataGrid,
+    GridColumns,
     GridToolbarContainer,
     GridToolbarExport,
 } from '@material-ui/data-grid';
 import api from '../../utils/api.config';
 import DatePicker from '../date-picker';
 
-const headers = [
-    {
-        field: 'creationDate',
-        headerName: 'Fecha Creación',
-        width: 200,
-        type: 'date',
-        valueGetter: (e: any) => new Date(e.value).toLocaleString(),
-    },
-    {
-        field: 'modelType',
-        headerName: 'Tipo Modelo',
-        width: 200,
-        type: 'string',
-    },
-    {
-        field: 'username',
-        headerName: 'Experimentador',
-        width: 200,
-        type: 'string',
-    },
-    {
-        field: 'state',
-        headerName: 'Estado',
-        width: 150,
-        type: 'number',
-        valueGetter: (e: any) => {
-            switch (e.value) {
-                case 2:
-                    return 'Completo';
-                case 1:
-                    return 'Incompleto';
-                case 0:
-                    return 'Fallido';
-                default:
-                    return e.value;
-            }
-        },
-    },
-];
-
 export default function CustomizedTables() {
     // TODO: Pasarlo a redux
-    const [rows, setRows] = React.useState<{ data: any[]; total: number }>();
+    const [rows, setRows] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
 
     const [filters, setFilters] = React.useState({
@@ -61,11 +22,70 @@ export default function CustomizedTables() {
         getData();
     }, []);
 
+    const getDynamicHeaders = (arr: any[]): string[] => {
+        const keys: string[] = [];
+        arr.forEach((exp) => {
+            keys.push(...Object.keys(exp).filter((key) => !keys.includes(key)));
+        });
+        return keys;
+    };
+
+    const getHeaders = (arr: any[]) => {
+        const staticKeys = [
+            {
+                field: 'user',
+                headerName: 'Usuario',
+                width: 200,
+                type: 'string',
+            },
+            {
+                field: 'group',
+                headerName: 'Grupo',
+                width: 200,
+                type: 'string',
+                valueGetter: (e: any) => (e.value ? e.value : 'NA'),
+            },
+            {
+                field: 'email',
+                headerName: 'Correo',
+                width: 200,
+                type: 'string',
+                valueGetter: (e: any) => (e.value ? e.value : 'NA'),
+            },
+            {
+                field: 'date',
+                headerName: 'Fecha Creación',
+                width: 200,
+                type: 'date',
+                valueGetter: (e: any) => new Date(e.value).toLocaleString(),
+            },
+        ];
+
+        const dynamicKeys = getDynamicHeaders(arr);
+
+        const headers = [
+            ...staticKeys,
+            ...dynamicKeys
+                .filter(
+                    (key) => !['id', 'date', 'group', 'email'].includes(key)
+                )
+                .map((key) => ({
+                    field: key,
+                    header: key,
+                    width: 200,
+                    type: 'string',
+                })),
+        ];
+
+        return headers;
+    };
+
     const getData = async (): Promise<void> => {
         setLoading(true);
 
         try {
             const result = await api.get('answers');
+            getHeaders(result.data);
             setRows(result.data);
         } catch {}
         setLoading(false);
@@ -85,11 +105,10 @@ export default function CustomizedTables() {
             ? new Date(filters.endDate)
             : new Date();
 
-        return rows?.total
-            ? rows.data.filter((answer) => {
-                  const creationDate = new Date(answer.creationDate);
+        return rows
+            ? rows.filter((answer: any) => {
+                  const creationDate = new Date(answer.date);
 
-                  console.log(creationDate <= endDate, endDate);
                   return creationDate >= initDate && creationDate <= endDate;
               })
             : [];
@@ -97,6 +116,7 @@ export default function CustomizedTables() {
 
     return (
         <>
+            {/* Filtros */}
             <div
                 style={{
                     display: 'flex',
@@ -120,13 +140,13 @@ export default function CustomizedTables() {
                 />
             </div>
 
-            {/* <DatePicker /> */}
+            {/* Tabla */}
             <div style={{ height: 500, width: '80%', margin: 'auto' }}>
                 <DataGrid
                     disableColumnMenu
                     loading={loading}
                     rows={dataFiltered()}
-                    columns={headers}
+                    columns={getHeaders(dataFiltered())}
                     rowsPerPageOptions={[5, 10, 25, 50, 100]}
                     pagination
                     components={{

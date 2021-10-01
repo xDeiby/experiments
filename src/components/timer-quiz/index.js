@@ -1,5 +1,8 @@
 // Components
-import { quizModify } from '../../store/ducks/executionExperiment';
+import {
+    quizModify,
+    selectAlternative,
+} from '../../store/ducks/executionExperiment';
 
 // Librarys
 import React from 'react';
@@ -71,7 +74,15 @@ export default function TimerQuiz({ onEndQuiz }) {
     };
 
     const nextQuestion = () => {
-        dispatch(nextSubStep());
+        const timeEnd =
+            section.quizTime -
+            (minutesTime * 60 + secondsTime) -
+            subStep.timeInit;
+
+        dispatch(
+            selectAlternative({ ...questions[subStep.step], timeResp: timeEnd })
+        );
+        dispatch(nextSubStep(timeEnd));
     };
 
     // Function to end quiz
@@ -79,8 +90,15 @@ export default function TimerQuiz({ onEndQuiz }) {
         clearInterval(intervalRef.current);
         const time_end = section.quizTime - (minutesTime * 60 + secondsTime);
 
+        const timeEnd =
+            section.quizTime -
+            (minutesTime * 60 + secondsTime) -
+            subStep.timeInit;
+
+        dispatch(
+            selectAlternative({ ...questions[subStep.step], timeResp: timeEnd })
+        );
         dispatch(quizModify({ ...section, timeEnd: time_end }));
-        // dispatch(nextStep(next, surv_limit));
         onEndQuiz();
     };
 

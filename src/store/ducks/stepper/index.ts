@@ -46,6 +46,7 @@ export const nextStep = (next: number, surv_limit: number, limit?: number) => {
                 initSubStep({
                     init: 0,
                     limit: quizes.questions.length,
+                    timeInit: 0,
                 })
             );
 
@@ -67,7 +68,8 @@ export const backStep = (back: number) => {
 
 export const initSubStep = (subStepConf: InitSubStep) =>
     action(EActionStepper.INIT_SUBSTEP, subStepConf);
-export const nextSubStep = () => action(EActionStepper.NEXT_SUBSTEP);
+export const nextSubStep = (timeEnd: number) =>
+    action(EActionStepper.NEXT_SUBSTEP, timeEnd);
 
 // Reducer
 
@@ -113,7 +115,7 @@ const getBackValue = (
 
 const stepReducer: Reducer<
     IStepModel,
-    IAction<EActionStepper, InitStep | ChangeStep | InitSubStep>
+    IAction<EActionStepper, InitStep | ChangeStep | InitSubStep | number>
 > = (state = defaultStep, action) => {
     const newStep = action.payload;
 
@@ -133,7 +135,7 @@ const stepReducer: Reducer<
             return state.step + 1 <= state.limit
                 ? {
                       ...state,
-                      ...newStep,
+                      ...(newStep as ChangeStep),
                       step: state.next,
                       next: getNextValue(
                           state.step + 1,
@@ -151,7 +153,7 @@ const stepReducer: Reducer<
             return state.step - 1 >= state.init
                 ? {
                       ...state,
-                      ...newStep,
+                      ...(newStep as ChangeStep),
                       step: state.back,
                       next: getNextValue(
                           state.step - 1,
@@ -178,10 +180,12 @@ const stepReducer: Reducer<
             };
 
         case EActionStepper.NEXT_SUBSTEP:
+            const timeEnd = action.payload as number;
             return {
                 ...state,
                 subStep: {
                     ...state.subStep,
+                    timeInit: timeEnd,
                     step: state.subStep.next,
                     next: getNextValue(
                         state.subStep.step + 1,
