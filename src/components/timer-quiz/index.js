@@ -229,6 +229,7 @@ export default function TimerQuiz({ onEndQuiz }) {
             >
                 {subStep.next !== subStep.limit ? (
                     <Button
+                        id="next-question"
                         variant="outlined"
                         color="primary"
                         startIcon={<EventAvailableIcon />}
@@ -241,6 +242,7 @@ export default function TimerQuiz({ onEndQuiz }) {
                     <Button
                         variant="outlined"
                         color="primary"
+                        id="end-quiz"
                         startIcon={<EventAvailableIcon />}
                         disabled={!isCompleteQuiz()}
                         onClick={endQuiz}

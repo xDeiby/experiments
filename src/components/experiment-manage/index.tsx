@@ -139,7 +139,7 @@ export default function ExperimentManage() {
                                     <SettingsIcon
                                         style={{ fontSize: '2.5em' }}
                                     />
-                                    <strong>Congifigurar Evaluación</strong>
+                                    <strong>Configurar Evaluación</strong>
                                 </StyledDivConfig>
                             </div>
                         </Container>

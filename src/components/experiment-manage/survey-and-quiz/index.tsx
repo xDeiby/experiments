@@ -182,6 +182,7 @@ export default function FormManage(props: ExperimentManageProps) {
 
                 <Button
                     color="primary"
+                    id="back-experiment"
                     startIcon={<KeyboardArrowLeftIcon />}
                     style={{ marginLeft: '25px', marginBottom: '20px' }}
                     onClick={() => props.setMainView()}

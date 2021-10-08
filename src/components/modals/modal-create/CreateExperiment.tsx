@@ -52,7 +52,7 @@ export default function CreateExperiment({
     }, [dispatch]);
 
     return (
-        <div style={{ marginLeft: '20px' }}>
+        <div id="modal-new-experiment" style={{ marginLeft: '20px' }}>
             <Button
                 variant="outlined"
                 color="primary"
@@ -71,7 +71,7 @@ export default function CreateExperiment({
 
                     <Autocomplete
                         freeSolo
-                        id="free-solo-2-demo"
+                        id="modelType"
                         disableClearable
                         loading={modelTypes.loading}
                         onChange={(e: any) =>
@@ -103,6 +103,7 @@ export default function CreateExperiment({
                         margin="dense"
                         id="title"
                         label="Titulo del experimento"
+                        name="title"
                         type="text"
                         onChange={({ currentTarget }) =>
                             setExperimentData({

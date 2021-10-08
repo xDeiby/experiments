@@ -88,6 +88,7 @@ export default function MenuBar({ openBar, title }: IMenuBar) {
                 <Toolbar>
                     <IconButton
                         onClick={() => openBar()}
+                        id="button-bar"
                         edge="start"
                         className={classes.menuButton}
                         color="inherit"

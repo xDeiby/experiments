@@ -78,6 +78,7 @@ export default function ModalImage({
             <Button
                 variant="text"
                 color="primary"
+                id="modal-image"
                 size="large"
                 startIcon={icon}
                 onClick={handleClickOpen}
@@ -213,8 +214,8 @@ export default function ModalImage({
                         disabled={
                             !imageDetails.title ||
                             !imageDetails.description ||
-                            !imageDetails.modelJson ||
-                            !image
+                            !imageDetails.modelJson
+                            // !image
                         }
                         onClick={uploadImage}
                         startIcon={<SaveIcon />}

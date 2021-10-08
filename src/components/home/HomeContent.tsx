@@ -49,7 +49,7 @@ export default function HomeContent() {
                     startIcon={<SettingsIcon />}
                     onClick={() => history.push('/experiments')}
                 >
-                    Administrar Expeirmentos
+                    Administrar Experimentos
                 </Button>
             </div>
             {/* Hero unit */}
