@@ -5,17 +5,13 @@ import { ApplicationState } from '../../../../store';
 
 export function SectionSelect() {
     const sectionElements = useSelector((state: ApplicationState) => {
-        const section = state.section_steps.data;
-        const experiment = state.execution_experiment.data;
+        const step = state.section_steps.step;
+        const sections = [
+            ...state.execution_experiment.data.surveys,
+            ...state.execution_experiment.data.quizzes,
+        ];
 
-        if (section.type === ETypeSection.SURVEY)
-            return experiment.surveys.find(
-                (el) => el.section.id === section.id
-            );
-        else
-            return experiment.quizzes.find(
-                (el) => el.section.id === section.id
-            );
+        return sections[step];
     }) as IFormElements;
 
     const allSections = useSelector((state: ApplicationState) => {

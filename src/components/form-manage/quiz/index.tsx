@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '../../../store';
 import { QuestionResult } from '../../results-quiz/QuestionResult';
 import ModalQuiz from '../../modals/modal-info/ModalQuiz';
-import { nextStep } from '../../../store/ducks/stepper';
+import { initSubStep, nextStep } from '../../../store/ducks/stepper';
 import { createExecutionExperimentRequest } from '../../../store/ducks/executionExperiment';
 
 // Component
@@ -25,6 +25,17 @@ export default function QuizFormView() {
         (state: ApplicationState) => state.section_steps
     );
     const dispatch = useDispatch();
+
+    React.useEffect(() => {
+        !subStep.step !== undefined &&
+            dispatch(
+                initSubStep({
+                    init: 0,
+                    limit: questions.length,
+                    timeInit: 0,
+                })
+            );
+    }, [section]);
 
     const handleNext = () => {
         dispatch(nextStep(next, surv_limit, limit));
@@ -58,27 +69,29 @@ export default function QuizFormView() {
         </div>
     ) : (
         <>
-            <>
-                {/* Section title, description, time, etc */}
-                <SectionView section={section} />
+            {subStep.step !== undefined && (
+                <>
+                    {/* Section title, description, time, etc */}
+                    <SectionView section={section} />
 
-                {/* Question Title */}
-                <Typography
-                    variant={'h6'}
-                    align="center"
-                    style={{ margin: '30px 0px', fontWeight: 'bold' }}
-                >
-                    {`Pregunta N.º ${subStep.step + 1}: ${
-                        questions[subStep.step].question
-                    }`}
-                </Typography>
+                    {/* Question Title */}
+                    <Typography
+                        variant={'h6'}
+                        align="center"
+                        style={{ margin: '30px 0px', fontWeight: 'bold' }}
+                    >
+                        {`Pregunta N.º ${subStep.step + 1}: ${
+                            questions[subStep.step].question
+                        }`}
+                    </Typography>
 
-                <QuestionForm
-                    isInQuiz={true}
-                    key={questions[subStep.step].id}
-                    question={questions[subStep.step]}
-                />
-            </>
+                    <QuestionForm
+                        isInQuiz={true}
+                        key={questions[subStep.step].id}
+                        question={questions[subStep.step]}
+                    />
+                </>
+            )}
             <TimerQuiz onEndQuiz={() => setIsEndQuiz(true)} />
         </>
     );

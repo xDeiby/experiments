@@ -52,9 +52,9 @@ export default function ImageQuizView({ image }: IImageQuizViewProps) {
                         buttonName="Modificar"
                         icon={<SettingsIcon />}
                     />
-                    <IconButton aria-label="delete" onClick={remove}>
+                    {/* <IconButton aria-label="delete" onClick={remove}>
                         <DeleteIcon />
-                    </IconButton>
+                    </IconButton> */}
                 </div>
             </div>
         </div>

@@ -11,11 +11,11 @@ import { IRequestStore } from '../../../model/stores';
 import api from '../../../utils/api.config';
 
 // Requests functions
-function* getExperiments() {
+function* getExperiments(action: any) {
     try {
         const response: IRequestStore<IExperiment[]> = yield call(
             api.get,
-            `experiments`
+            `experiments?aviables=${action.payload}`
         );
         yield put(loadSuccessExperiments(response.data));
     } catch (error) {

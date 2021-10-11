@@ -57,61 +57,89 @@ export default function LogExperiment() {
 
     return (
         <Loading isLoading={loading}>
-            <div
-                style={{
-                    width: '80%',
-                    margin: 'auto',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    padding: '20px 0px',
-                }}
-            >
-                <Timeline align="alternate">
-                    {data.map((change) => (
-                        <TimelineItem key={change.id}>
-                            <TimelineOppositeContent>
-                                <Typography
-                                    variant="body2"
-                                    color="textSecondary"
-                                >
-                                    {`${
-                                        getDatePart(
-                                            new Date(
-                                                change.creationDate as string
-                                            )
-                                        )[0]
-                                    } ${
-                                        getDatePart(
-                                            new Date(
-                                                change.creationDate as string
-                                            )
-                                        )[1]
-                                    }`}
-                                </Typography>
-                            </TimelineOppositeContent>
-                            <TimelineSeparator>
-                                <TimelineDot>
-                                    <FastfoodIcon />
-                                </TimelineDot>
-                                <TimelineConnector />
-                            </TimelineSeparator>
-                            <TimelineContent>
-                                <Paper elevation={3} className={classes.paper}>
-                                    <Typography variant="h6" component="h1">
-                                        {change.name}
-                                    </Typography>
-                                    <Typography>
-                                        {change.typeChanges ===
-                                        ETypeChange.IMPORTANT
-                                            ? 'Cambios importantes'
-                                            : 'Cambios menores'}
-                                    </Typography>
-                                </Paper>
-                            </TimelineContent>
-                        </TimelineItem>
-                    ))}
-                </Timeline>
-            </div>
+            {data.length ? (
+                <div
+                    style={{
+                        width: '80%',
+                        margin: 'auto',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        padding: '20px 0px',
+                    }}
+                >
+                    {
+                        <Timeline align="alternate">
+                            {data.map((change) => (
+                                <TimelineItem key={change.id}>
+                                    <TimelineOppositeContent>
+                                        <Typography
+                                            variant="body2"
+                                            color="textSecondary"
+                                        >
+                                            {`${
+                                                getDatePart(
+                                                    new Date(
+                                                        change.creationDate as string
+                                                    )
+                                                )[0]
+                                            } ${
+                                                getDatePart(
+                                                    new Date(
+                                                        change.creationDate as string
+                                                    )
+                                                )[1]
+                                            }`}
+                                        </Typography>
+                                    </TimelineOppositeContent>
+                                    <TimelineSeparator>
+                                        <TimelineDot>
+                                            <FastfoodIcon />
+                                        </TimelineDot>
+                                        <TimelineConnector />
+                                    </TimelineSeparator>
+                                    <TimelineContent>
+                                        <Paper
+                                            elevation={3}
+                                            className={classes.paper}
+                                        >
+                                            <Typography
+                                                variant="h6"
+                                                component="h1"
+                                            >
+                                                {change.name}
+                                            </Typography>
+                                            <Typography>
+                                                {change.typeChanges ===
+                                                ETypeChange.IMPORTANT
+                                                    ? 'Cambios importantes'
+                                                    : 'Cambios menores'}
+                                            </Typography>
+                                        </Paper>
+                                    </TimelineContent>
+                                </TimelineItem>
+                            ))}
+                        </Timeline>
+                    }
+                </div>
+            ) : (
+                <div
+                    style={{
+                        height: '80vh',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Typography
+                        component="h1"
+                        variant="h2"
+                        align="center"
+                        color="textSecondary"
+                    >
+                        No hay cambios
+                    </Typography>
+                </div>
+            )}
         </Loading>
     );
 }

@@ -1,20 +1,21 @@
-import { Reducer } from "react";
-import { action } from "typesafe-actions";
-import { IExperiment } from "../../../model/experiment";
-import { IAction, IRequestStore } from "../../../model/stores";
+import { Reducer } from 'react';
+import { action } from 'typesafe-actions';
+import { IExperiment } from '../../../model/experiment';
+import { IAction, IRequestStore } from '../../../model/stores';
 
 // Action Types
 export enum EActionExperiments {
-    LOAD_REQUEST = "@experiments/LOAD_REQUEST",
-    LOAD_SUCCESS = "@experiments/LOAD_SUCCESS",
-    LOAD_FAILURE = "@experiments/LOAD_FAILURE",
-    ADD_REQUEST = "@experiments/ADD_REQUEST",
-    ADD_SUCCESS = "@experiments/ADD_SUCCESS",
-    ADD_FAILURE = "@experiments/ADD_FAILURE",
+    LOAD_REQUEST = '@experiments/LOAD_REQUEST',
+    LOAD_SUCCESS = '@experiments/LOAD_SUCCESS',
+    LOAD_FAILURE = '@experiments/LOAD_FAILURE',
+    ADD_REQUEST = '@experiments/ADD_REQUEST',
+    ADD_SUCCESS = '@experiments/ADD_SUCCESS',
+    ADD_FAILURE = '@experiments/ADD_FAILURE',
 }
 
 // Action creators
-const loadExperiments = () => action(EActionExperiments.LOAD_REQUEST);
+const loadExperiments = (aviables: boolean) =>
+    action(EActionExperiments.LOAD_REQUEST, aviables);
 
 const loadSuccessExperiments = (experiment: IExperiment[]) =>
     action(EActionExperiments.LOAD_SUCCESS, experiment);
@@ -23,7 +24,7 @@ const loadFailureExperiments = () => action(EActionExperiments.LOAD_FAILURE);
 const addRequest = (
     experiment: Omit<
         IExperiment,
-        "id" | "creationDate" | "logModifys" | "state"
+        'id' | 'creationDate' | 'logModifys' | 'state'
     >
 ) => action(EActionExperiments.ADD_REQUEST, experiment);
 

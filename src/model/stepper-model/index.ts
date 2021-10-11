@@ -7,12 +7,12 @@ export interface IStepModel {
     limit: number;
     next: number;
     back: number;
-    data: ISection;
     subStep: ISubStep;
 }
 
 export interface ISubStep {
     init: number;
+    timeInit: number;
     step: number;
     next: number;
     limit: number;

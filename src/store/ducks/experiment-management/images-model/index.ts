@@ -33,7 +33,7 @@ const loadSuccessImagesManage = (images: IImageModel[]) => {
 const loadFailureImageManage = () =>
     action(EActionImagesManagement.LOAD_FAILURE);
 
-const modifyImageRequest = (image: IImageModel) =>
+const modifyImageRequest = (image: { data: FormData; id: string }) =>
     action(EActionImagesManagement.MODIFY_REQUEST, image);
 
 const modifyImageSuccess = (image: IImageModel) =>

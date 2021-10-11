@@ -33,7 +33,7 @@ const buttons: IAppButton[] = [
 const ModifysRouter: React.FunctionComponent = () => {
     return (
         <Route exact path={`${Routes.modifys}/:id`}>
-            <AppBarE title="Simular Experimentos" buttons={buttons}>
+            <AppBarE title="Registro de cambios" buttons={buttons}>
                 <LogExperiment />
             </AppBarE>
         </Route>

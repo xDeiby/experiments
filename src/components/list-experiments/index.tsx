@@ -8,6 +8,7 @@ import Loading from '../loading';
 // Librarys
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Typography } from '@material-ui/core';
 
 export default function ListExperiment() {
     // Store Management
@@ -18,9 +19,7 @@ export default function ListExperiment() {
 
     // UseEffect
     React.useEffect(() => {
-        if (experiments.data.length === 0) {
-            dispatch(loadExperiments());
-        }
+        dispatch(loadExperiments(false));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
@@ -29,34 +28,63 @@ export default function ListExperiment() {
         // Loading Context
         <Loading isLoading={experiments.loading}>
             {/* List Content */}
-            <div>
+            {experiments.data.length ? (
+                <div>
+                    <div
+                        id="card-experiments"
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-around',
+                            flexWrap: 'wrap',
+                            flexBasis: '200px',
+                            padding: 20,
+                        }}
+                    >
+                        {/* Content */}
+                        {experiments.data.map((experiment) => (
+                            <CardExperiment
+                                key={experiment.id}
+                                experiment={experiment}
+                            />
+                        ))}
+                    </div>
+
+                    <CreateExperiment
+                        name={'Nuevo Experimento'}
+                        title={'Crear Experimento'}
+                        description={
+                            'Para crear un experimento ingrese el nombre del experimento, su descripción y el tipo de modelo al que pertenece'
+                        }
+                    />
+                </div>
+            ) : (
                 <div
                     style={{
+                        height: '80vh',
                         display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
-                        flexWrap: 'wrap',
-                        flexBasis: '200px',
-                        padding: 20,
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                     }}
                 >
-                    {/* Content */}
-                    {experiments.data.map((experiment) => (
-                        <CardExperiment
-                            key={experiment.id}
-                            experiment={experiment}
-                        />
-                    ))}
+                    <Typography
+                        style={{ marginBottom: '10px' }}
+                        component="h1"
+                        variant="h4"
+                        color="textSecondary"
+                    >
+                        No hay experimentos
+                    </Typography>
+                    <CreateExperiment
+                        name={'Nuevo Experimento'}
+                        title={'Crear Experimento'}
+                        description={
+                            'Para crear un experimento ingrese el nombre del experimento, su descripción y el tipo de modelo al que pertenece'
+                        }
+                    />
                 </div>
-
-                <CreateExperiment
-                    name={'Nuevo Experimento'}
-                    title={'Crear Experimento'}
-                    description={
-                        'Para crear un experimento ingrese el nombre del experimento, su descripción y el tipo de modelo al que pertenece'
-                    }
-                />
-            </div>
+            )}
         </Loading>
     );
 }

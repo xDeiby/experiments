@@ -17,10 +17,11 @@ import {
 // Model Props
 interface IModalTermsProps {
     acepted: () => void;
+    terms: string;
 }
 
 // Component
-export default function ModalTerms({ acepted }: IModalTermsProps) {
+export default function ModalTerms({ acepted, terms }: IModalTermsProps) {
     // States
     const [open, setOpen] = React.useState(false);
     const [isAcepted, setIsAcepted] = React.useState(false);
@@ -74,14 +75,7 @@ export default function ModalTerms({ acepted }: IModalTermsProps) {
                         ref={descriptionElementRef}
                         tabIndex={-1}
                     >
-                        {[...new Array(50)]
-                            .map(
-                                () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-                            )
-                            .join('\n')}
+                        {terms}
                     </DialogContentText>
                 </DialogContent>
                 {/* Checkbox to accept conditions */}

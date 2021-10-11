@@ -94,7 +94,7 @@ export default function QuestionManage(props: IQuestionManageProps) {
                 style={{ marginBottom: '15px' }}
                 autoFocus
                 margin="dense"
-                id="title-section"
+                id="title-question"
                 label="Pregunta"
                 type="text"
                 value={questionElements.question}
@@ -160,7 +160,7 @@ export default function QuestionManage(props: IQuestionManageProps) {
                     <TextField
                         autoFocus
                         margin="dense"
-                        id="title-section"
+                        id="alternative-question"
                         type="text"
                         value={alternative.value}
                         onChange={({ currentTarget }) => {
@@ -204,6 +204,7 @@ export default function QuestionManage(props: IQuestionManageProps) {
                 <Link
                     component="button"
                     variant="subtitle1"
+                    id="add-option"
                     onClick={() => {
                         setQuestionElements({
                             ...questionElements,
@@ -281,16 +282,18 @@ export default function QuestionManage(props: IQuestionManageProps) {
                     />
                 )}
 
-                <Button
-                    color="primary"
-                    startIcon={
-                        assing ? <CloseIcon /> : <CheckCircleRoundedIcon />
-                    }
-                    onClick={() => setAssing(!assing)}
-                    disabled={!questionElements.points}
-                >
-                    Asignar Correctas
-                </Button>
+                {questionElements.points && (
+                    <Button
+                        color="primary"
+                        startIcon={
+                            assing ? <CloseIcon /> : <CheckCircleRoundedIcon />
+                        }
+                        onClick={() => setAssing(!assing)}
+                        disabled={!questionElements.points}
+                    >
+                        Asignar Correctas
+                    </Button>
+                )}
 
                 <RemoveElement
                     data_rm={questionElements}
@@ -307,7 +310,7 @@ export default function QuestionManage(props: IQuestionManageProps) {
                     type="number"
                     value={questionElements.points}
                     onChange={(e) =>
-                        e.currentTarget.value &&
+                        parseInt(e.currentTarget.value) > 0 &&
                         setQuestionElements({
                             ...questionElements,
                             points: parseInt(e.currentTarget.value),

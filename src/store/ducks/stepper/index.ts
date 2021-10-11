@@ -25,17 +25,16 @@ type ChangeStep = Omit<
 type InitSubStep = Omit<ISubStep, 'step' | 'next'>;
 
 // Actions Creators
-export const initStep = (stepConf: InitStep) =>
-    action(EActionStepper.INIT_STEP, stepConf);
+export const initStep = (stepConf: InitStep) => {
+    return action(EActionStepper.INIT_STEP, stepConf);
+};
 
 export const nextStep = (next: number, surv_limit: number, limit?: number) => {
     const data = (store.getState() as ApplicationState).execution_experiment
         .data;
 
     if (next === limit) {
-        return action(EActionStepper.NEXT_STEP, {
-            data: {} as ISection,
-        });
+        return action(EActionStepper.NEXT_STEP);
     }
 
     if (next > surv_limit - 1) {
@@ -46,6 +45,7 @@ export const nextStep = (next: number, surv_limit: number, limit?: number) => {
                 initSubStep({
                     init: 0,
                     limit: quizes.questions.length,
+                    timeInit: 0,
                 })
             );
 
@@ -67,7 +67,8 @@ export const backStep = (back: number) => {
 
 export const initSubStep = (subStepConf: InitSubStep) =>
     action(EActionStepper.INIT_SUBSTEP, subStepConf);
-export const nextSubStep = () => action(EActionStepper.NEXT_SUBSTEP);
+export const nextSubStep = (timeEnd: number) =>
+    action(EActionStepper.NEXT_SUBSTEP, timeEnd);
 
 // Reducer
 
@@ -78,7 +79,6 @@ const defaultStep: IStepModel = {
     surv_limit: 0,
     next: 0,
     back: 0,
-    data: {} as ISection,
     subStep: {} as ISubStep,
 };
 
@@ -88,7 +88,7 @@ const getNextValue = (
     limit: number,
     init: number
 ): number => {
-    if (nextStep <= limit - 1 && nextStep > init) {
+    if (nextStep <= limit - 1 && nextStep >= init) {
         return nextStep + 1;
     } else if (nextStep === limit - 1) {
         return nextStep;
@@ -113,7 +113,7 @@ const getBackValue = (
 
 const stepReducer: Reducer<
     IStepModel,
-    IAction<EActionStepper, InitStep | ChangeStep | InitSubStep>
+    IAction<EActionStepper, InitStep | ChangeStep | InitSubStep | number>
 > = (state = defaultStep, action) => {
     const newStep = action.payload;
 
@@ -133,7 +133,7 @@ const stepReducer: Reducer<
             return state.step + 1 <= state.limit
                 ? {
                       ...state,
-                      ...newStep,
+                      ...(newStep as ChangeStep),
                       step: state.next,
                       next: getNextValue(
                           state.step + 1,
@@ -151,7 +151,7 @@ const stepReducer: Reducer<
             return state.step - 1 >= state.init
                 ? {
                       ...state,
-                      ...newStep,
+                      ...(newStep as ChangeStep),
                       step: state.back,
                       next: getNextValue(
                           state.step - 1,
@@ -178,10 +178,12 @@ const stepReducer: Reducer<
             };
 
         case EActionStepper.NEXT_SUBSTEP:
+            const timeEnd = action.payload as number;
             return {
                 ...state,
                 subStep: {
                     ...state.subStep,
+                    timeInit: timeEnd,
                     step: state.subStep.next,
                     next: getNextValue(
                         state.subStep.step + 1,

@@ -97,6 +97,7 @@ export default function QuestionForm(props: IQuestionFormProps) {
     return (
         <div>
             <div
+                id="options-container"
                 style={{
                     padding: '30px',
                     marginBottom: '20px',
@@ -130,6 +131,7 @@ export default function QuestionForm(props: IQuestionFormProps) {
                     <RadioGroup>
                         {question.alternatives.map((alternative, index) => (
                             <FormControlLabel
+                                id="radio-option"
                                 key={index}
                                 value={alternative.value}
                                 control={
@@ -153,6 +155,7 @@ export default function QuestionForm(props: IQuestionFormProps) {
                         {' '}
                         {question.alternatives.map((alternative, index) => (
                             <FormControlLabel
+                                id="checkbox-option"
                                 key={index}
                                 value={alternative.value}
                                 control={

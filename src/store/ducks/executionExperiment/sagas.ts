@@ -16,8 +16,9 @@ function* getExecutionExperiment(action: any) {
     try {
         const response: IRequestStore<AnswerElements> = yield call(
             api.get,
-            `answers/${action.payload}`
+            `answers/model/${action.payload}`
         );
+        const wea = 1;
         yield put(loadExperimentElementsSuccess(response.data));
     } catch (error) {
         yield put(loadExperimentElementsFailure());

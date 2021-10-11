@@ -10,6 +10,7 @@ import {
 import {
     createImageManageWatcher,
     getImageManageWatcher,
+    modifyImageManageWatcher,
     removeImageManageWatcher,
 } from './experiment-management/images-model/sagas';
 
@@ -37,12 +38,13 @@ import {
     createExperimentWatcher,
 } from './experiment/sagas';
 
-import { getModelTypesWatcher } from './modelType/sagas';
+import { createModelWatcher, getModelTypesWatcher } from './modelType/sagas';
 
 export default function* rootSaga(): any {
     return yield all([
         // ModelType Watchers
         getModelTypesWatcher(),
+        createModelWatcher(),
 
         // Experiment Watchers
         getExperimentsWatcher(),
@@ -74,5 +76,6 @@ export default function* rootSaga(): any {
         getImageManageWatcher(),
         removeImageManageWatcher(),
         createImageManageWatcher(),
+        modifyImageManageWatcher(),
     ]);
 }
