@@ -35,6 +35,7 @@ export default function QuizFormView() {
                     timeInit: 0,
                 })
             );
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [section]);
 
     const handleNext = () => {

@@ -1,5 +1,4 @@
 import { useSelector } from 'react-redux';
-import { ETypeSection } from '../../../../model/experiment/enum-types';
 import { IFormElements } from '../../../../model/experiment/IExecutionExperiment';
 import { ApplicationState } from '../../../../store';
 

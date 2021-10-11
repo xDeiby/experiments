@@ -4,7 +4,6 @@ import { action } from 'typesafe-actions';
 import { Reducer } from 'react';
 import { IStepModel, ISubStep } from '../../../model/stepper-model';
 import { IAction } from '../../../model/stores';
-import { ISection } from '../../../model/experiment';
 import store, { ApplicationState } from '../..';
 
 export enum EActionStepper {

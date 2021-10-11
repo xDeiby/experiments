@@ -19,7 +19,6 @@ import {
 import { Routes } from '../../utils/routes.config';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '../../store';
-import { loadModels } from '../../store/ducks/modelType';
 import { useHistory } from 'react-router';
 import { loadExperiments } from '../../store/ducks/experiment';
 

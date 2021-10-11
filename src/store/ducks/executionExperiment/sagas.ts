@@ -18,7 +18,6 @@ function* getExecutionExperiment(action: any) {
             api.get,
             `answers/model/${action.payload}`
         );
-        const wea = 1;
         yield put(loadExperimentElementsSuccess(response.data));
     } catch (error) {
         yield put(loadExperimentElementsFailure());

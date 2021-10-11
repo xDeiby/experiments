@@ -1,23 +1,20 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { Divider, IconButton, Typography } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Divider, Typography } from '@material-ui/core';
 import * as React from 'react';
 import { IImageModel } from '../../../../model/experiment';
 import ModalImage from '../../../modals/modal-create/ModalImage';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { useDispatch } from 'react-redux';
-import { removeImageRequest } from '../../../../store/ducks/experiment-management/images-model';
 
 export interface IImageQuizViewProps {
     image: IImageModel;
 }
 
 export default function ImageQuizView({ image }: IImageQuizViewProps) {
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    const remove = () => {
-        dispatch(removeImageRequest(image.id));
-    };
+    // const remove = () => {
+    //     dispatch(removeImageRequest(image.id));
+    // };
 
     return (
         <div

@@ -88,6 +88,7 @@ export default function ExperimentManage({
                 setTitle('Administrar Evaluaciones');
                 break;
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [view]);
 
     // Switch view component

@@ -1,7 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import {
     DataGrid,
-    GridColumns,
     GridToolbarContainer,
     GridToolbarExport,
 } from '@material-ui/data-grid';
