@@ -11,7 +11,10 @@ import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import SaveIcon from '@material-ui/icons/Save';
 import { IImageModel, ISection } from '../../../model/experiment';
 import { useDispatch } from 'react-redux';
-import { createImageRequest } from '../../../store/ducks/experiment-management/images-model';
+import {
+    createImageRequest,
+    modifyImageRequest,
+} from '../../../store/ducks/experiment-management/images-model';
 
 export interface IModalImageProps {
     quiz?: ISection;
@@ -53,14 +56,16 @@ export default function ModalImage({
     const uploadImage = () => {
         const data = new FormData();
 
-        data.append('file', image?.image as File);
+        image && data.append('file', image.image as File);
         data.append('title', imageDetails.title);
         data.append('description', imageDetails.description);
         data.append('modelJson', imageDetails.modelJson);
         data.append('quiz', imageDetails.quiz);
         data.append('experiment', imageDetails.experiment);
 
-        dispatch(createImageRequest(data));
+        existImage
+            ? dispatch(modifyImageRequest({ data, id: existImage.id }))
+            : dispatch(createImageRequest(data));
         setOpen(false);
     };
 
@@ -208,20 +213,40 @@ export default function ModalImage({
                     >
                         cancelar
                     </Button>
-                    <Button
-                        color="primary"
-                        variant="contained"
-                        disabled={
-                            !imageDetails.title ||
-                            !imageDetails.description ||
-                            !imageDetails.modelJson
-                            // !image
-                        }
-                        onClick={uploadImage}
-                        startIcon={<SaveIcon />}
-                    >
-                        Guardar Cambios
-                    </Button>
+
+                    {existImage ? (
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            disabled={
+                                imageDetails.title === existImage.title &&
+                                imageDetails.description ===
+                                    existImage.description &&
+                                imageDetails.modelJson ===
+                                    existImage.modelJson &&
+                                !image
+                            }
+                            onClick={uploadImage}
+                            startIcon={<SaveIcon />}
+                        >
+                            Modificar
+                        </Button>
+                    ) : (
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            disabled={
+                                !imageDetails.title ||
+                                !imageDetails.description ||
+                                !imageDetails.modelJson ||
+                                !image
+                            }
+                            onClick={uploadImage}
+                            startIcon={<SaveIcon />}
+                        >
+                            Guardar
+                        </Button>
+                    )}
                 </DialogActions>
             </Dialog>
         </React.Fragment>

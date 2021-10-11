@@ -89,6 +89,12 @@ export default function FormManage(props: ExperimentManageProps) {
         setValue(newValue);
     };
 
+    const onNewTab = () => {
+        setValue(
+            sections.data.filter((section) => section.type === typeForm).length
+        );
+    };
+
     const is_modify = () => {
         const original_sections = sessionStorage.getItem('original_sections');
         const original_questions = sessionStorage.getItem('original_questions');
@@ -123,7 +129,13 @@ export default function FormManage(props: ExperimentManageProps) {
                         onChange={handleChange}
                         indicatorColor="primary"
                         textColor="primary"
-                        // variant="scrollable"
+                        variant={
+                            sections.data.filter(
+                                (section) => section.type === typeForm
+                            ).length >= 5
+                                ? 'scrollable'
+                                : 'fullWidth'
+                        }
                         scrollButtons="auto"
                         aria-label="scrollable auto tabs example"
                         centered
@@ -174,6 +186,7 @@ export default function FormManage(props: ExperimentManageProps) {
                                     ))}
                             </Loading>
                             <TooltipView
+                                newTab={onNewTab}
                                 section={section}
                                 typeForm={typeForm}
                             />

@@ -282,16 +282,18 @@ export default function QuestionManage(props: IQuestionManageProps) {
                     />
                 )}
 
-                <Button
-                    color="primary"
-                    startIcon={
-                        assing ? <CloseIcon /> : <CheckCircleRoundedIcon />
-                    }
-                    onClick={() => setAssing(!assing)}
-                    disabled={!questionElements.points}
-                >
-                    Asignar Correctas
-                </Button>
+                {questionElements.points && (
+                    <Button
+                        color="primary"
+                        startIcon={
+                            assing ? <CloseIcon /> : <CheckCircleRoundedIcon />
+                        }
+                        onClick={() => setAssing(!assing)}
+                        disabled={!questionElements.points}
+                    >
+                        Asignar Correctas
+                    </Button>
+                )}
 
                 <RemoveElement
                     data_rm={questionElements}
@@ -308,7 +310,7 @@ export default function QuestionManage(props: IQuestionManageProps) {
                     type="number"
                     value={questionElements.points}
                     onChange={(e) =>
-                        e.currentTarget.value &&
+                        parseInt(e.currentTarget.value) > 0 &&
                         setQuestionElements({
                             ...questionElements,
                             points: parseInt(e.currentTarget.value),

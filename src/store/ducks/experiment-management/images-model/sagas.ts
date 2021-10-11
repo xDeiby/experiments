@@ -4,6 +4,8 @@ import {
     EActionImagesManagement,
     loadFailureImageManage,
     loadSuccessImagesManage,
+    modifyImageFailure,
+    modifyImageSuccess,
     removeImageFailure,
     removeImageSuccess,
 } from '.';
@@ -47,12 +49,29 @@ function* createImage(action: any) {
     }
 }
 
+function* modifyImage(action: any) {
+    try {
+        const response: IRequestStore<IImageModel> = yield call(
+            api.put,
+            `images/${action.payload.id}`,
+            action.payload.data
+        );
+        yield put(modifyImageSuccess(response.data));
+    } catch (error) {
+        yield put(modifyImageFailure());
+    }
+}
+
 // Watchers
 export function* getImageManageWatcher(): any {
     yield takeLatest(
         EActionImagesManagement.LOAD_REQUEST,
         getImagesByExperiment
     );
+}
+
+export function* modifyImageManageWatcher(): any {
+    yield takeLatest(EActionImagesManagement.MODIFY_REQUEST, modifyImage);
 }
 
 export function* removeImageManageWatcher(): any {

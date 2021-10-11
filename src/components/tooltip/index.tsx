@@ -14,14 +14,15 @@ import * as React from 'react';
 import styled from 'styled-components';
 import AddIcon from '@material-ui/icons/Add';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
-import VisibilityIcon from '@material-ui/icons/Visibility';
 import { Fab, Tooltip } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
+import SectionsPreview from '../modals/modal-info/sections-preview/SectionsPreview';
 
 // Model Props
 export interface ITooltipProps {
     section: ISection;
     typeForm: ETypeSection;
+    newTab: () => void;
 }
 
 // Styles
@@ -44,7 +45,11 @@ const StyledButtom = styled(Tooltip)`
 `;
 
 // Component
-export default function TooltipView({ section, typeForm }: ITooltipProps) {
+export default function TooltipView({
+    section,
+    typeForm,
+    newTab,
+}: ITooltipProps) {
     const dispatch = useDispatch();
     const { questionsLen, sectionsLen, log_changes } = useSelector(
         (state: ApplicationState) => ({
@@ -73,6 +78,7 @@ export default function TooltipView({ section, typeForm }: ITooltipProps) {
 
         dispatch(addRequestSection(default_section));
         logModify();
+        newTab();
     };
 
     const nameSection = () =>
@@ -133,11 +139,7 @@ export default function TooltipView({ section, typeForm }: ITooltipProps) {
                     <AddIcon />
                 </Fab>
             </StyledButtom>
-            <StyledButtom title="Ver" aria-label="add" placement="left" arrow>
-                <Fab color="secondary" size="small">
-                    <VisibilityIcon />
-                </Fab>
-            </StyledButtom>
+            <SectionsPreview typeSections={typeForm} />
         </StyledTooltips>
     );
 }

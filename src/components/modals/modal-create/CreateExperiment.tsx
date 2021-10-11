@@ -1,7 +1,8 @@
 // Components
 import { ApplicationState } from '../../../store';
 import { addRequest } from '../../../store/ducks/experiment';
-import { loadModels } from '../../../store/ducks/modelType';
+import { createModelRequest, loadModels } from '../../../store/ducks/modelType';
+import AddIcon from '@material-ui/icons/Add';
 
 // Librarys
 import {
@@ -11,6 +12,8 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    IconButton,
+    InputAdornment,
     TextField,
 } from '@material-ui/core';
 import React from 'react';
@@ -28,6 +31,7 @@ export default function CreateExperiment({
 }) {
     // States
     const [open, setOpen] = React.useState(false);
+    const [newModel, setNewModel] = React.useState('');
     const [experimentData, setExperimentData] = React.useState({
         title: '',
         description: '',
@@ -74,15 +78,16 @@ export default function CreateExperiment({
                         id="modelType"
                         disableClearable
                         loading={modelTypes.loading}
-                        onChange={(e: any) =>
+                        onChange={(e: any) => {
+                            setNewModel('');
                             setExperimentData({
                                 ...experimentData,
                                 modelType: modelTypes.data.filter(
                                     (model) =>
                                         model.name === e.target.textContent
                                 )[0].id,
-                            })
-                        }
+                            });
+                        }}
                         options={modelTypes.data}
                         getOptionLabel={(option) => option.name}
                         renderInput={(params) => (
@@ -90,10 +95,44 @@ export default function CreateExperiment({
                                 {...params}
                                 label="Tipo de modelo"
                                 margin="normal"
+                                onChange={(e: any) => {
+                                    if (
+                                        !modelTypes.data
+                                            .map((model) => model.name)
+                                            .includes(e.target.value)
+                                    ) {
+                                        setNewModel(e.target.value);
+                                        console.log('entro');
+                                    } else {
+                                        setNewModel('');
+                                        console.log('no entro');
+                                    }
+                                }}
                                 variant="outlined"
                                 InputProps={{
                                     ...params.InputProps,
                                     type: 'search',
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            {newModel && (
+                                                <IconButton
+                                                    aria-label="toggle password visibility"
+                                                    edge="end"
+                                                    title="Nuevo modelo"
+                                                    onClick={() => {
+                                                        dispatch(
+                                                            createModelRequest(
+                                                                newModel
+                                                            )
+                                                        );
+                                                        setNewModel('');
+                                                    }}
+                                                >
+                                                    <AddIcon />
+                                                </IconButton>
+                                            )}
+                                        </InputAdornment>
+                                    ),
                                 }}
                             />
                         )}

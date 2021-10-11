@@ -11,6 +11,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { Container, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { IModelType } from '../../model/experiment';
+import CreateTerms from '../modals/modal-create/CreateTerms';
 
 // Views to management
 export enum EViewManage {
@@ -47,7 +49,11 @@ const StyledDivConfig = styled.div`
 `;
 
 // Component
-export default function ExperimentManage() {
+export default function ExperimentManage({
+    setTitle,
+}: {
+    setTitle: (title: string) => void;
+}) {
     // States
     const [view, setView] = React.useState<EViewManage>(EViewManage.EXPERIMENT);
     const classes = useStyles();
@@ -69,6 +75,21 @@ export default function ExperimentManage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, id]);
 
+    React.useEffect(() => {
+        switch (view) {
+            case EViewManage.EXPERIMENT:
+                setTitle('Administrar Experimento');
+                break;
+            case EViewManage.SURVEY:
+                setTitle('Administrar Encuestas');
+                break;
+
+            case EViewManage.QUIZ:
+                setTitle('Administrar Evaluaciones');
+                break;
+        }
+    }, [view]);
+
     // Switch view component
 
     // Manage Sections
@@ -84,7 +105,9 @@ export default function ExperimentManage() {
                     }}
                 >
                     <FormManagement
-                        setMainView={() => setView(EViewManage.EXPERIMENT)}
+                        setMainView={() => {
+                            setView(EViewManage.EXPERIMENT);
+                        }}
                         idExperiment={id}
                         typeForm={view as number}
                     />
@@ -100,9 +123,26 @@ export default function ExperimentManage() {
                 <Loading isLoading={currentExperiment.loading}>
                     <div className={classes.heroContent}>
                         <Container maxWidth="md">
+                            {currentExperiment.data.modelType && (
+                                <Typography
+                                    component="h1"
+                                    variant="h2"
+                                    align="center"
+                                    color="textPrimary"
+                                    gutterBottom
+                                >
+                                    {
+                                        (
+                                            currentExperiment.data
+                                                .modelType as IModelType
+                                        ).name
+                                    }
+                                </Typography>
+                            )}
+
                             <Typography
-                                component="h1"
-                                variant="h2"
+                                component="h3"
+                                variant="h3"
                                 align="center"
                                 color="textPrimary"
                                 gutterBottom
@@ -126,15 +166,22 @@ export default function ExperimentManage() {
                                 }}
                             >
                                 <StyledDivConfig
-                                    onClick={() => setView(EViewManage.SURVEY)}
+                                    onClick={() => {
+                                        setView(EViewManage.SURVEY);
+                                    }}
                                 >
                                     <SettingsIcon
                                         style={{ fontSize: '2.5em' }}
                                     />
                                     <strong>Configurar Encuestas</strong>
                                 </StyledDivConfig>
+                                <CreateTerms
+                                    experiment={currentExperiment.data}
+                                />
                                 <StyledDivConfig
-                                    onClick={() => setView(EViewManage.QUIZ)}
+                                    onClick={() => {
+                                        setView(EViewManage.QUIZ);
+                                    }}
                                 >
                                     <SettingsIcon
                                         style={{ fontSize: '2.5em' }}

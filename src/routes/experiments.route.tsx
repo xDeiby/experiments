@@ -34,7 +34,7 @@ const ExperimentsRoute: React.FunctionComponent = () => {
     return (
         <Route exact path={Routes.experiments}>
             <>
-                <AppBarE title={'Menu'} buttons={buttons}>
+                <AppBarE title={'Experimentos'} buttons={buttons}>
                     <ListExperiment />
                 </AppBarE>
             </>

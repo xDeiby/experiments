@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '../../store';
 import { loadModels } from '../../store/ducks/modelType';
 import { useHistory } from 'react-router';
+import { loadExperiments } from '../../store/ducks/experiment';
 
 export interface ISimulatorProps {}
 
@@ -74,20 +75,22 @@ const useStyles = makeStyles((theme) => ({
 export default function Simulator(props: ISimulatorProps) {
     const classes = useStyles();
 
-    const models = useSelector((state: ApplicationState) => state.modelTypes);
+    const experiments = useSelector(
+        (state: ApplicationState) => state.experiments
+    );
     const dispatch = useDispatch();
     const history = useHistory();
 
     React.useEffect(() => {
-        dispatch(loadModels(false));
+        dispatch(loadExperiments(true));
     }, [dispatch]);
 
-    const handleClick = async (model: IModelType) => {
-        history.push(`${Routes.execution}/${model.id}`);
+    const handleClick = async (id: string) => {
+        history.push(`${Routes.execution}/${id}`);
     };
 
     return (
-        <Loading isLoading={models.loading}>
+        <Loading isLoading={experiments.loading}>
             <Container
                 maxWidth="sm"
                 component="main"
@@ -114,19 +117,19 @@ export default function Simulator(props: ISimulatorProps) {
             {/* End hero unit */}
             <Container maxWidth="md" component="main">
                 <Grid container spacing={5} alignItems="flex-end">
-                    {models.data.map((model) => (
+                    {experiments.data.map((experiment) => (
                         // Enterprise card is full width at sm breakpoint
                         <Grid
                             item
-                            key={model.id}
+                            key={experiment.id}
                             xs={12}
                             // sm={tier.title === "Enterprise" ? 12 : 6}
                             md={4}
                         >
                             <Card>
                                 <CardHeader
-                                    title={'Experimento'}
-                                    subheader={model.abbreviation}
+                                    title={experiment.title}
+                                    subheader={experiment.description}
                                     titleTypographyProps={{ align: 'center' }}
                                     subheaderTypographyProps={{
                                         align: 'center',
@@ -145,7 +148,11 @@ export default function Simulator(props: ISimulatorProps) {
                                             variant="h4"
                                             color="textPrimary"
                                         >
-                                            {model.name}
+                                            {
+                                                (
+                                                    experiment.modelType as IModelType
+                                                ).name
+                                            }
                                         </Typography>
                                     </div>
                                 </CardContent>
@@ -153,7 +160,13 @@ export default function Simulator(props: ISimulatorProps) {
                                     <Button
                                         fullWidth
                                         variant={'contained'}
-                                        onClick={() => handleClick(model)}
+                                        onClick={() =>
+                                            handleClick(
+                                                (
+                                                    experiment.modelType as IModelType
+                                                ).id
+                                            )
+                                        }
                                         color="primary"
                                         startIcon={<PlayCircleOutlineIcon />}
                                     >

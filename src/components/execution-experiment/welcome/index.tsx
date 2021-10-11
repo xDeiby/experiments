@@ -54,15 +54,6 @@ export default function Welcome({
     const classes = useStyles();
     return (
         <div>
-            {/* <CssBaseline /> */}
-            {/* <AppBar position="relative">
-                <Toolbar>
-                    <ListAltIcon className={classes.icon} />
-                    <Typography variant="h6" color="inherit" noWrap>
-                        Experimento
-                    </Typography>
-                </Toolbar>
-            </AppBar> */}
             <main>
                 {/* Hero unit */}
                 <div className={classes.heroContent}>
@@ -93,7 +84,10 @@ export default function Welcome({
                             <div className={classes.heroButtons}>
                                 <Grid container spacing={2} justify="center">
                                     <Grid item>
-                                        <ModalTerms acepted={setAceptedTerms} />
+                                        <ModalTerms
+                                            acepted={setAceptedTerms}
+                                            terms={experiment.terms as string}
+                                        />
                                     </Grid>
                                 </Grid>
                             </div>

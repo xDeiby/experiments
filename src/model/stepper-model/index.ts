@@ -7,7 +7,6 @@ export interface IStepModel {
     limit: number;
     next: number;
     back: number;
-    data: ISection;
     subStep: ISubStep;
 }
 

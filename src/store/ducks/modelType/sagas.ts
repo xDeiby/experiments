@@ -1,5 +1,11 @@
 import { put, call, takeLatest } from 'redux-saga/effects';
-import { EActionModelTypes, loadFailureModels, loadSuccessModels } from '.';
+import {
+    createSuccessModel,
+    createFailureModel,
+    EActionModelTypes,
+    loadFailureModels,
+    loadSuccessModels,
+} from '.';
 import { IModelType } from '../../../model/experiment';
 import { IRequestStore } from '../../../model/stores';
 import api from '../../../utils/api.config';
@@ -23,7 +29,23 @@ function* getModelTypes(action: any) {
     }
 }
 
+function* createNewModel(action: any) {
+    try {
+        const response: IRequestStore<IModelType> = yield call(
+            api.post,
+            `model_types`,
+            { name: action.payload }
+        );
+        yield put(createSuccessModel(response.data));
+    } catch (error) {
+        yield put(createFailureModel());
+    }
+}
 // Watchers
 export function* getModelTypesWatcher(): any {
     yield takeLatest(EActionModelTypes.LOAD_REQUEST, getModelTypes);
+}
+
+export function* createModelWatcher(): any {
+    yield takeLatest(EActionModelTypes.CREATE_REQUEST, createNewModel);
 }

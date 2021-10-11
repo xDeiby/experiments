@@ -34,11 +34,12 @@ const loadExperimentElementsSuccess = (experiment: AnswerElements) => {
     store.dispatch(
         initStep({
             init: 0,
-            limit: experiment.surveys.length + experiment.quizzes.length,
-            data: experiment.surveys[0].section,
-            surv_limit: experiment.surveys.length,
+            limit: (experiment.surveys.length +
+                experiment.quizzes.length) as number,
+            surv_limit: experiment.surveys.length as number,
         })
     );
+
     return action(EActionExecutionExperiment.LOAD_SUCCESS, experiment);
 };
 

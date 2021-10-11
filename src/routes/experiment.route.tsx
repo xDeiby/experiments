@@ -37,11 +37,13 @@ const buttons: IAppButton[] = [
 
 // Route
 const ExperimentRoute: React.FunctionComponent = () => {
+    const [title, setTitle] = React.useState('Administrar Experimento');
+
     return (
         <Route exact path={`${Routes.experiments}/:id`}>
             <>
-                <AppBarE title={'Administrar experimento'} buttons={buttons}>
-                    <ExperimentManage />
+                <AppBarE title={title} buttons={buttons}>
+                    <ExperimentManage setTitle={setTitle} />
                 </AppBarE>
             </>
         </Route>
