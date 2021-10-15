@@ -41,7 +41,7 @@ export default function HomeContent() {
                     style={{ color: 'white', width: '50%' }}
                     gutterBottom
                 >
-                    Herramienta para el Ánalisis de modelos conceptuales
+                    MUSS - Model Understandability Survey System
                 </Typography>
                 <Button
                     variant="contained"
