@@ -21,11 +21,7 @@ import { Route } from 'react-router';
 const ExecutionRoute: React.FunctionComponent = () => {
     return (
         <Route exact path={`${Routes.execution}/:id`}>
-            <>
-                {/* <AppBarE title={'Administrar experimento'} buttons={buttons}> */}
-                <ExecutionExperiment />
-                {/* </AppBarE> */}
-            </>
+            <ExecutionExperiment />
         </Route>
     );
 };

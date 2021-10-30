@@ -39,11 +39,9 @@ const buttons: IAppButton[] = [
 const ExportRoute: React.FunctionComponent = () => {
     return (
         <Route exact path={Routes.export}>
-            <>
-                <AppBarE title={'Exportación de datos'} buttons={buttons}>
-                    <CustomizedTables />
-                </AppBarE>
-            </>
+            <AppBarE title={'Exportación de datos'} buttons={buttons}>
+                <CustomizedTables />
+            </AppBarE>
         </Route>
     );
 };

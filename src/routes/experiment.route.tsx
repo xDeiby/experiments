@@ -41,11 +41,9 @@ const ExperimentRoute: React.FunctionComponent = () => {
 
     return (
         <Route exact path={`${Routes.experiments}/:id`}>
-            <>
-                <AppBarE title={title} buttons={buttons}>
-                    <ExperimentManage setTitle={setTitle} />
-                </AppBarE>
-            </>
+            <AppBarE title={title} buttons={buttons}>
+                <ExperimentManage setTitle={setTitle} />
+            </AppBarE>
         </Route>
     );
 };

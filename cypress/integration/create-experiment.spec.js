@@ -5,50 +5,14 @@ import questionsTest from '../fixtures/questionsTest.json';
 import questionsQuizTest from '../fixtures/questionsQuizTest.json';
 import modelImageTest from '../fixtures/modeImgaeTest.json';
 
-// Cypress.Commands.add('addImage', (imagePath) => {
-//     cy.fixture(imagePath)
-//         .as('uploadedImage')
-//         .get('#input-file')
-//         .click()
-//         // .get('input[type=file]')
-//         .then(function (el) {
-//             return Cypress.Blob.base64StringToBlob(
-//                 this.uploadImage,
-//                 'image/png'
-//             ).then((blob) => {
-//                 function FileListItem(a) {
-//                     a = [].slice.call(Array.isArray(a) ? a : arguments);
-//                     for (var c, b = (c = a.length), d = !0; b-- && d; )
-//                         d = a[b] instanceof File;
-//                     if (!d)
-//                         throw new TypeError(
-//                             'expected argument to FileList is File or array of File objects'
-//                         );
-//                     for (
-//                         b =
-//                             new ClipboardEvent('').clipboardData ||
-//                             new DataTransfer();
-//                         c--;
-
-//                     )
-//                         b.items.add(a[c]);
-//                     return b.files;
-//                 }
-//                 const files = [
-//                     new File([blob], 'image', { type: 'image/png' }),
-//                 ];
-//                 el[0].files = new FileListItem(files);
-//                 cy.contains('Guardar Cambios').click();
-//             });
-//         });
-// });
-
 const experiment = experimentTest;
 const model = modelTest;
 before(function () {
+    // Ruta de seteo de la base de datos, solo accesible si se inicia el backend en modo test, con lo cual tambien se trabajara con la base de datos de testeo
     cy.request('POST', 'http://localhost:3001/api/reset');
     cy.request('POST', 'http://localhost:3001/api/model_types', model);
 });
+
 describe('Creación de un Experimento', () => {
     it('Creacion de un experimento', () => {
         cy.visit('http://localhost:3000/experiments');
@@ -118,13 +82,6 @@ describe('Creación de un Experimento', () => {
     it('Modificaciones en las evaluaciones', () => {
         cy.get('.MuiContainer-root').contains('Configurar Evaluación').click();
 
-        // cy.get('.MuiTypography-h5').click();
-        // cy.get('#title-section').type('Quiz end to end');
-        // cy.get('#description-section').type(
-        //     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-        // );
-        // cy.get('.MuiBox-root > :nth-child(1) > .MuiButton-root').click();
-
         const modelImgae = modelImageTest;
         cy.get('#modal-image > .MuiButton-label')
             .click()
@@ -133,7 +90,7 @@ describe('Creación de un Experimento', () => {
             .then(() => {
                 cy.get('#title').type(modelImgae.title);
                 cy.get('#description').type(modelImgae.description);
-                cy.get('#modelJson').type(`modelJSON`);
+                cy.get('#modelJson').type(`modelJSONExample`);
                 const image = 'expTest.png';
                 cy.get('#icon-button-file').attachFile(image);
                 cy.get(':nth-child(4) > .MuiButton-label').click();
@@ -160,10 +117,20 @@ describe('Creación de un Experimento', () => {
             cy.get('.MuiButton-contained').click();
             index++;
         }
-        cy.get('#button-bar').click();
+        cy.get('#back-experiment').click();
+    });
+
+    it('Terminos y Condiciones', () => {
+        const terms =
+            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.";
+
+        cy.get('.sc-dlfnuX').click();
+        cy.get('#outlined-multiline-static').type(terms);
+        cy.get('.MuiButton-textPrimary > .MuiButton-label').click();
     });
 
     it('Ejecución del experimento', () => {
+        cy.get('#button-bar').click();
         cy.get('.MuiList-root')
             .children()
             .contains('Simular Experimento')
@@ -183,15 +150,12 @@ describe('Creación de un Experimento', () => {
             });
 
         // TODO: Generalizar
-        cy.get(
-            ':nth-child(2) > #options-container > .MuiFormGroup-root > #radio-option'
-        ).click();
 
         cy.get(
-            ':nth-child(3) > #options-container > .MuiFormControl-root > :nth-child(1)'
+            ':nth-child(2) > #options-container > .MuiFormControl-root > :nth-child(1)'
         ).click();
         cy.get(
-            ':nth-child(3) > #options-container > .MuiFormControl-root > :nth-child(3)'
+            ':nth-child(2) > #options-container > .MuiFormControl-root > :nth-child(3)'
         ).click();
 
         cy.get('#type-question-select')
@@ -211,9 +175,6 @@ describe('Creación de un Experimento', () => {
                 cy.get('.MuiDialogActions-root > .MuiButtonBase-root').click();
             });
 
-        cy.get('#radio-option').click();
-        cy.get('#next-question').click();
-
         cy.get('.MuiFormGroup-root > :nth-child(1)').click();
         cy.get('#next-question').click();
 
@@ -226,16 +187,16 @@ describe('Creación de un Experimento', () => {
         cy.get('.MuiButton-label').click();
     });
 
-    // it('Verificación de la creación de la instancia', () => {
-    //     cy.visit('http://localhost:3000/model_types');
-    //     cy.get('#button-bar').click();
-    //     cy.get('.MuiList-root')
-    //         .children()
-    //         .contains('Exportar Experimentos')
-    //         .click();
-    // });
+    it('Verificación de la creación de la instancia', () => {
+        cy.visit('http://localhost:3000/model_types');
+        cy.get('#button-bar').click();
+        cy.get('.MuiList-root')
+            .children()
+            .contains('Exportar Experimentos')
+            .click();
+    });
 
-    // after(() => {
-    //     cy.request('POST', 'http://localhost:3001/api/reset');
-    // });
+    after(() => {
+        cy.request('POST', 'http://localhost:3001/api/reset');
+    });
 });

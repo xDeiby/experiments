@@ -35,7 +35,7 @@ export default function ListExperiment() {
                         style={{
                             display: 'flex',
                             flexDirection: 'row',
-                            justifyContent: 'space-around',
+                            justifyContent: 'space-evenly',
                             flexWrap: 'wrap',
                             flexBasis: '200px',
                             padding: 20,

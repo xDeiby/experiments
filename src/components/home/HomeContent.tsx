@@ -41,7 +41,7 @@ export default function HomeContent() {
                     style={{ color: 'white', width: '50%' }}
                     gutterBottom
                 >
-                    MUSS - Model Understandability Survey System 
+                   MUSS - Model Understandability Survey System  
                 </Typography>
                 <Button
                     variant="contained"
