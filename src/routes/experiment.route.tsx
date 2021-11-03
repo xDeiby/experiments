@@ -24,8 +24,8 @@ const buttons: IAppButton[] = [
         icon: <SettingsApplicationsIcon />,
     },
     {
-        name: 'Simular Experimento',
-        path: Routes.models,
+        name: 'Ejecutar Experimento',
+        path: Routes.execution,
         icon: <ListAltIcon />,
     },
     {

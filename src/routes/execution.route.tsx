@@ -1,12 +1,10 @@
 // Components
-// import AppBarE, { IAppButton } from '../components/app-bar';
-// import HomeIcon from '@material-ui/icons/Home';
-import ExecutionExperiment from '../components/execution-experiment';
 import { Routes } from '../utils/routes.config';
 
 // Librarys
 import * as React from 'react';
 import { Route } from 'react-router';
+import { ExecutionExperiment } from '../components/execution-experiment';
 
 // Buttons
 // const buttons: IAppButton[] = [
@@ -20,7 +18,7 @@ import { Route } from 'react-router';
 // Route
 const ExecutionRoute: React.FunctionComponent = () => {
     return (
-        <Route exact path={`${Routes.execution}/:id`}>
+        <Route exact path={[Routes.execution, `${Routes.execution}/:id`]}>
             <ExecutionExperiment />
         </Route>
     );

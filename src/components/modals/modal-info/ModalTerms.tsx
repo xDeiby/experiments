@@ -13,15 +13,23 @@ import {
     DialogTitle,
     FormControlLabel,
 } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import { modifyLocalExecutionExperimnt } from '../../../store/ducks/executionExperiment';
+import { IExecutionExperiment } from '../../../model/experiment/IExecutionExperiment';
 
 // Model Props
 interface IModalTermsProps {
     acepted: () => void;
     terms: string;
+    username: string;
 }
 
 // Component
-export default function ModalTerms({ acepted, terms }: IModalTermsProps) {
+export default function ModalTerms({
+    acepted,
+    terms,
+    username,
+}: IModalTermsProps) {
     // States
     const [open, setOpen] = React.useState(false);
     const [isAcepted, setIsAcepted] = React.useState(false);
@@ -35,6 +43,7 @@ export default function ModalTerms({ acepted, terms }: IModalTermsProps) {
         setOpen(false);
     };
 
+    const dispatch = useDispatch();
     const descriptionElementRef = React.useRef<HTMLElement>(null);
 
     React.useEffect(() => {
@@ -108,6 +117,11 @@ export default function ModalTerms({ acepted, terms }: IModalTermsProps) {
                     <Button
                         startIcon={<CheckCircleOutlineOutlinedIcon />}
                         onClick={() => {
+                            dispatch(
+                                modifyLocalExecutionExperimnt({
+                                    userName: username,
+                                } as IExecutionExperiment)
+                            );
                             setOpen(false);
                             acepted();
                         }}

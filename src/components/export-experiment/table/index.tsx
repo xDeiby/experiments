@@ -5,8 +5,12 @@ import {
     GridToolbarContainer,
     GridToolbarExport,
 } from '@material-ui/data-grid';
-import api from '../../utils/api.config';
-import DatePicker from '../date-picker';
+import api from '../../../utils/api.config';
+import DatePicker from '../../date-picker';
+import { CustomSelect } from '../select/CustomSelect';
+import { useDispatch, useSelector } from 'react-redux';
+import { ApplicationState } from '../../../store';
+import { loadModels } from '../../../store/ducks/modelType';
 
 export default function CustomizedTables() {
     // TODO: Pasarlo a redux
@@ -16,10 +20,11 @@ export default function CustomizedTables() {
     const [filters, setFilters] = React.useState({
         initDate: '',
         endDate: '',
+        model: '',
     });
 
     React.useEffect(() => {
-        getData();
+        dispatch(loadModels());
     }, []);
 
     const getDynamicHeaders = (arr: any[]): string[] => {
@@ -30,6 +35,9 @@ export default function CustomizedTables() {
         return keys;
     };
 
+    const dispatch = useDispatch();
+    const models = useSelector((store: ApplicationState) => store.modelTypes);
+
     const getHeaders = (arr: any[]) => {
         const staticKeys = [
             {
@@ -38,13 +46,7 @@ export default function CustomizedTables() {
                 width: 200,
                 type: 'string',
             },
-            {
-                field: 'group',
-                headerName: 'Grupo',
-                width: 200,
-                type: 'string',
-                valueGetter: (e: any) => (e.value ? e.value : 'NA'),
-            },
+
             {
                 field: 'email',
                 headerName: 'Correo',
@@ -80,11 +82,12 @@ export default function CustomizedTables() {
         return headers;
     };
 
-    const getData = async (): Promise<void> => {
+    const getData = async (idModel: string): Promise<void> => {
         setLoading(true);
 
         try {
-            const result = await api.get('answers');
+            const query = `model=${idModel}`;
+            const result = await api.get(`answers?${query}`);
             getHeaders(result.data);
             setRows(result.data);
         } catch {}
@@ -120,9 +123,12 @@ export default function CustomizedTables() {
             <div
                 style={{
                     display: 'flex',
+                    width: '60%',
+                    margin: 'auto',
                     flexDirection: 'row',
-                    justifyContent: 'center',
+                    justifyContent: 'space-evenly',
                     padding: '20px 0',
+                    flexGrow: 1,
                 }}
             >
                 <DatePicker
@@ -130,6 +136,16 @@ export default function CustomizedTables() {
                     value={filters.initDate}
                     name={'initDate'}
                     changeValue={changeFilters}
+                />
+
+                <CustomSelect
+                    changeModel={(id: string) => {
+                        setFilters((prev) => ({ ...prev, model: id }));
+                        getData(id);
+                        console.log('entre');
+                    }}
+                    model={filters.model}
+                    options={models.data}
                 />
 
                 <DatePicker
@@ -144,6 +160,7 @@ export default function CustomizedTables() {
             <div style={{ height: 500, width: '80%', margin: 'auto' }}>
                 <DataGrid
                     disableColumnMenu
+                    disableSelectionOnClick
                     loading={loading}
                     rows={dataFiltered()}
                     columns={getHeaders(dataFiltered())}

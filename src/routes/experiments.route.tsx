@@ -18,8 +18,8 @@ const buttons: IAppButton[] = [
         icon: <HomeIcon />,
     },
     {
-        name: 'Simular Experimento',
-        path: Routes.models,
+        name: 'Ejecutar Experimento',
+        path: Routes.execution,
         icon: <ListAltIcon />,
     },
     {

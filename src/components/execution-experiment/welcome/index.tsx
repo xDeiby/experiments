@@ -42,12 +42,14 @@ const useStyles = makeStyles((theme) => ({
 
 // Model props
 export interface IWelcomeProps {
+    username: string;
     experiment: IExperiment;
     setAceptedTerms: () => void;
 }
 
 // Component
 export default function Welcome({
+    username,
     experiment,
     setAceptedTerms,
 }: IWelcomeProps) {
@@ -65,33 +67,32 @@ export default function Welcome({
                             color="textPrimary"
                             gutterBottom
                         >
-                            {experiment
-                                ? `Bienvenido a ${experiment.title}`
-                                : 'No se encontro ningun experimento disponible'}
+                            {`Bienvenido ${
+                                username.charAt(0).toUpperCase() +
+                                username.slice(1).toLowerCase()
+                            }, al experimento ${experiment.title} `}
                         </Typography>
-                        {experiment && (
-                            <Typography
-                                variant="h5"
-                                align="center"
-                                color="textSecondary"
-                                paragraph
-                            >
-                                {experiment.description}
-                            </Typography>
-                        )}
+                        <Typography
+                            variant="h5"
+                            align="center"
+                            color="textSecondary"
+                            paragraph
+                        >
+                            {experiment.description}
+                        </Typography>
+
                         {/* Terms and Conditions */}
-                        {experiment && (
-                            <div className={classes.heroButtons}>
-                                <Grid container spacing={2} justify="center">
-                                    <Grid item>
-                                        <ModalTerms
-                                            acepted={setAceptedTerms}
-                                            terms={experiment.terms as string}
-                                        />
-                                    </Grid>
+                        <div className={classes.heroButtons}>
+                            <Grid container spacing={2} justify="center">
+                                <Grid item>
+                                    <ModalTerms
+                                        username={username}
+                                        acepted={setAceptedTerms}
+                                        terms={experiment.terms as string}
+                                    />
                                 </Grid>
-                            </div>
-                        )}
+                            </Grid>
+                        </div>
                     </Container>
                 </div>
             </main>

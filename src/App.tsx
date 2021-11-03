@@ -28,7 +28,7 @@ function App() {
                 <ExecutionRoute />
 
                 {/* Simulator modelator */}
-                <SimulatorRoute />
+                {/* <SimulatorRoute /> */}
 
                 {/* Export of experiments */}
                 <ExportRoute />
