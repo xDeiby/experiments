@@ -2,7 +2,6 @@ import {
     FormControl,
     Select,
     MenuItem,
-    FormHelperText,
     makeStyles,
     InputLabel,
 } from '@material-ui/core';

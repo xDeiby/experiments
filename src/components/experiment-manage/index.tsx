@@ -8,7 +8,7 @@ import { loadRequestExperimentManage } from '../../store/ducks/experiment-manage
 import * as React from 'react';
 import styled from 'styled-components';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { Container, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { IModelType } from '../../model/experiment';

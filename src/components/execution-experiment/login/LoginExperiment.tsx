@@ -16,7 +16,6 @@ import { loadExperiments } from '../../../store/ducks/experiment';
 import { ApplicationState } from '../../../store';
 import Loading from '../../loading';
 import { IModelType } from '../../../model/experiment';
-import { useHistory } from 'react-router';
 
 const StyledContainer = styled.div`
     height: 95vh;
@@ -50,7 +49,6 @@ export function LoginExperiment({
     const experiments = useSelector(
         (store: ApplicationState) => store.experiments
     );
-    const history = useHistory();
 
     React.useEffect(() => {
         dispatch(loadExperiments(true));
@@ -69,6 +67,7 @@ export function LoginExperiment({
                     idExp: (experiment.modelType as IModelType).id,
                 });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [experiments.loading]);
 
     return (
