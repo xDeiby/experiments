@@ -17,6 +17,11 @@ export enum EActionExecutionExperiment {
     CREATE_REQUEST = '@experiment-execution/CREATE_REQUEST',
     CREATE_SUCCESS = '@experiment-execution/CREATE_SUCCESS',
     CREATE_FAILURE = '@experiment-execution/CREATE_FAILURE',
+    MODIFY_LOCAL_EXPERIMENT = '@experiment-execution/MODIFY_LOCAL_EXPERIMENT',
+
+    MODIFY_REQUEST = '@experiment-execution/MODIFY_REQUEST',
+    MODIFY_SUCCESS = '@experiment-execution/MODIFY_SUCCESS',
+    MODIFY_FAILURE = '@experiment-execution/MODIFY_FAILURE',
 
     SELECT_OPTION = '@experiment-execution/SELECT_OPTION',
     RESET_OPTIONS = '@experiment-execution/RESET_OPTIONS',
@@ -64,17 +69,18 @@ const createExecutionExperimentFailure = () =>
     action(EActionExecutionExperiment.CREATE_FAILURE);
 
 // Modify
-// TODO: Implementar
-// const modifyInstanceRequest = () =>
-//     action(EActionExecutionExperiment.CREATE_REQUEST);
+const modifyExecutionExperimentRequest = (experiment: IExecutionExperiment) =>
+    action(EActionExecutionExperiment.MODIFY_REQUEST, experiment);
 
-// const modifyInstanceSuccess = () =>
-//     action(EActionExecutionExperiment.CREATE_SUCCESS);
+const modifyExecutionExperimentSuccess = (experiment: IExecutionExperiment) =>
+    action(EActionExecutionExperiment.MODIFY_SUCCESS, experiment);
 
-// const modifyInstanceFailure = () =>
-//     action(EActionExecutionExperiment.CREATE_FAILURE);
+const modifyExecutionExperimentFailure = () =>
+    action(EActionExecutionExperiment.MODIFY_FAILURE);
 
 // Action sync creators
+const modifyLocalExecutionExperimnt = (experimentData: IExecutionExperiment) =>
+    action(EActionExecutionExperiment.MODIFY_LOCAL_EXPERIMENT, experimentData);
 
 const selectAlternative = (question: IQuestion) =>
     action(EActionExecutionExperiment.SELECT_OPTION, question);
@@ -91,6 +97,10 @@ export {
     createExecutionExperimentRequest,
     createExecutionExperimentSuccess,
     createExecutionExperimentFailure,
+    modifyLocalExecutionExperimnt,
+    modifyExecutionExperimentRequest,
+    modifyExecutionExperimentSuccess,
+    modifyExecutionExperimentFailure,
     selectAlternative,
     resetOptions,
     quizModify,
@@ -132,6 +142,7 @@ const experimentExecutionReducer: Reducer<
     >
 > = (state = defaultExperiment, action) => {
     switch (action.type) {
+        case EActionExecutionExperiment.MODIFY_REQUEST:
         case EActionExecutionExperiment.CREATE_REQUEST:
         case EActionExecutionExperiment.LOAD_REQUEST:
             return {
@@ -145,6 +156,7 @@ const experimentExecutionReducer: Reducer<
                 error: false,
             };
 
+        case EActionExecutionExperiment.MODIFY_FAILURE:
         case EActionExecutionExperiment.CREATE_FAILURE:
         case EActionExecutionExperiment.LOAD_FAILURE:
             return {
@@ -182,6 +194,8 @@ const experimentExecutionReducer: Reducer<
                     },
                 };
             }
+
+        case EActionExecutionExperiment.MODIFY_SUCCESS:
         case EActionExecutionExperiment.CREATE_SUCCESS:
             return {
                 data: action.payload as IExecutionExperiment,
@@ -207,6 +221,16 @@ const experimentExecutionReducer: Reducer<
                         },
                         []
                     ),
+                },
+            };
+
+        case EActionExecutionExperiment.MODIFY_LOCAL_EXPERIMENT:
+            const m_fields = action.payload as IExecutionExperiment;
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    ...m_fields,
                 },
             };
 

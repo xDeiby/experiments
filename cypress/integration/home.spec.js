@@ -6,7 +6,7 @@ describe('Home Experiments', () => {
     // Se comprueba el renderizado del home
     it('Puede ser abierta', () => {
         // Comprueba si encuentras el siguiente texto
-        cy.contains('Herramienta para el Ánalisis de modelos conceptuales');
+        cy.contains('MUSS - Model Understandability Survey System');
     });
 
     // Se comprueba el correcto acceso a los experimentos

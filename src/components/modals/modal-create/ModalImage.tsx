@@ -15,6 +15,7 @@ import {
     createImageRequest,
     modifyImageRequest,
 } from '../../../store/ducks/experiment-management/images-model';
+import communicationModelVerify from '../../../utils/modules/comunication-model-verify';
 
 export interface IModalImageProps {
     quiz?: ISection;
@@ -160,7 +161,11 @@ export default function ModalImage({
                                 name="modelJson"
                                 label="JSON del modelo"
                                 type="text"
+                                error={communicationModelVerify(
+                                    imageDetails.modelJson
+                                )}
                                 rows={6}
+                                helperText="Ingresar un JSON válido de Análisis Comunicacional"
                                 onChange={onChangeDetails}
                                 multiline
                                 fullWidth
@@ -238,7 +243,9 @@ export default function ModalImage({
                             disabled={
                                 !imageDetails.title ||
                                 !imageDetails.description ||
-                                !imageDetails.modelJson ||
+                                communicationModelVerify(
+                                    imageDetails.modelJson
+                                ) ||
                                 !image
                             }
                             onClick={uploadImage}

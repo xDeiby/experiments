@@ -2,6 +2,7 @@ import { all } from 'redux-saga/effects';
 import {
     createExperimentInstanceWatcher,
     getExperimentExecutionWatcher,
+    modifyExperimentInstanceWatcher,
 } from './executionExperiment/sagas';
 import {
     getExperimentManageWatcher,
@@ -69,6 +70,7 @@ export default function* rootSaga(): any {
         // Execution Watchers
         getExperimentExecutionWatcher(),
         createExperimentInstanceWatcher(),
+        modifyExperimentInstanceWatcher(),
         removeQuestionManageWatcher(),
         removeSectionManageWatcher(),
 

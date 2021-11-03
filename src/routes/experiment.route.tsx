@@ -24,8 +24,8 @@ const buttons: IAppButton[] = [
         icon: <SettingsApplicationsIcon />,
     },
     {
-        name: 'Simular Experimento',
-        path: Routes.models,
+        name: 'Ejecutar Experimento',
+        path: Routes.execution,
         icon: <ListAltIcon />,
     },
     {
@@ -41,11 +41,9 @@ const ExperimentRoute: React.FunctionComponent = () => {
 
     return (
         <Route exact path={`${Routes.experiments}/:id`}>
-            <>
-                <AppBarE title={title} buttons={buttons}>
-                    <ExperimentManage setTitle={setTitle} />
-                </AppBarE>
-            </>
+            <AppBarE title={title} buttons={buttons}>
+                <ExperimentManage setTitle={setTitle} />
+            </AppBarE>
         </Route>
     );
 };

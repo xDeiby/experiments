@@ -26,9 +26,13 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export interface IStepperProps {
+    username: string;
     elements: IFormElements[];
 }
-export default function StepperExperiment({ elements }: IStepperProps) {
+export default function StepperExperiment({
+    elements,
+    username,
+}: IStepperProps) {
     const classes = useStyles();
 
     const step_names = elements.map((el) => el.section.title);
@@ -50,7 +54,7 @@ export default function StepperExperiment({ elements }: IStepperProps) {
 
             {/* Step Content */}
             {stepElements.step === stepElements.limit ? (
-                <ResultsView />
+                <ResultsView username={username} />
             ) : (
                 <TypeForm />
             )}

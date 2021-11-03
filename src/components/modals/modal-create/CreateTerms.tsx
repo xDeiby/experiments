@@ -22,14 +22,14 @@ const StyledDivConfig = styled.div`
     align-items: center;
     border-radius: 15px;
     padding: 20px;
-    -webkit-box-shadow: 0px 10px 13px -7px #000000,
-        5px 5px 14px 4px rgba(0, 0, 0, 0);
-    box-shadow: 0px 10px 13px -7px #000000, 5px 5px 14px 4px rgba(0, 0, 0, 0);
     box-sizing: border-box;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
     &:hover {
-        font-size: 1.1em;
+        /* font-size: 1.1em; */
         transition: linear 0.2s;
         cursor: pointer;
+        color: #3f51b5;
+        box-shadow: 5px 5px 10px #3f51b58d;
     }
 `;
 

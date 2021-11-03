@@ -3,7 +3,6 @@ import HomeRoute from './routes/home.route';
 import ExperimentRoute from './routes/experiment.route';
 import ExperimentsRoute from './routes/experiments.route';
 import ExecutionRoute from './routes/execution.route';
-import SimulatorRoute from './routes/simulator.route';
 
 // Librarys
 import './App.css';
@@ -28,7 +27,7 @@ function App() {
                 <ExecutionRoute />
 
                 {/* Simulator modelator */}
-                <SimulatorRoute />
+                {/* <SimulatorRoute /> */}
 
                 {/* Export of experiments */}
                 <ExportRoute />
