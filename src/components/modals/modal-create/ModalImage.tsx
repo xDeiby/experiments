@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { IconButton, TextField } from '@material-ui/core';
+import { IconButton, TextField, Typography } from '@material-ui/core';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import SaveIcon from '@material-ui/icons/Save';
 import { IImageModel, ISection } from '../../../model/experiment';
@@ -16,6 +16,7 @@ import {
     modifyImageRequest,
 } from '../../../store/ducks/experiment-management/images-model';
 import communicationModelVerify from '../../../utils/modules/comunication-model-verify';
+import { TablePreview } from '../../accordion/TablePreview';
 
 export interface IModalImageProps {
     quiz?: ISection;
@@ -34,6 +35,7 @@ export default function ModalImage({
     const [image, setImage] = React.useState<
         { image: File; url: string } | undefined
     >();
+    const [touched, setTouched] = React.useState(false);
     const [imageDetails, setImageDetails] = React.useState(
         existImage
             ? existImage
@@ -113,7 +115,14 @@ export default function ModalImage({
                             justifyContent: 'center',
                         }}
                     >
-                        <div className="labels">
+                        <div
+                            className="labels"
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                flex: '1 1 0',
+                            }}
+                        >
                             {' '}
                             <TextField
                                 autoFocus
@@ -148,7 +157,7 @@ export default function ModalImage({
                                 fullWidth
                             />
                             <TextField
-                                autoFocus
+                                style={{ flexGrow: 1 }}
                                 margin="dense"
                                 required={true}
                                 value={
@@ -161,30 +170,46 @@ export default function ModalImage({
                                 name="modelJson"
                                 label="JSON del modelo"
                                 type="text"
-                                error={communicationModelVerify(
-                                    imageDetails.modelJson
-                                )}
-                                rows={6}
+                                error={
+                                    touched &&
+                                    communicationModelVerify(
+                                        imageDetails.modelJson
+                                    )
+                                }
+                                onClick={(e) => setTouched(true)}
+                                rows={15}
                                 helperText="Ingresar un JSON válido de Análisis Comunicacional"
                                 onChange={onChangeDetails}
                                 multiline
                                 fullWidth
                             />
                         </div>
-                        <img
-                            loading="lazy"
-                            src={
-                                existImage && !image
-                                    ? existImage.pathImage
-                                    : image?.url
-                            }
-                            height="300"
-                            style={{
-                                display: 'block',
-                                margin: 'auto',
-                            }}
-                        />
+                        <figure style={{ flex: '1 1 0' }}>
+                            <img
+                                src={
+                                    existImage && !image
+                                        ? existImage.pathImage
+                                        : image?.url
+                                }
+                                style={{
+                                    display: 'block',
+                                    width: '100%',
+                                    margin: 'auto',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                }}
+                            />
+                        </figure>
                     </div>
+                    {!communicationModelVerify(imageDetails.modelJson) && (
+                        <div className="model-preview">
+                            <Typography variant="h6">
+                                Previsualización de datos del modelo
+                            </Typography>
+                            <hr />
+                            <TablePreview jsonModel={imageDetails.modelJson} />
+                        </div>
+                    )}
                 </DialogContent>
                 <DialogActions>
                     <input
