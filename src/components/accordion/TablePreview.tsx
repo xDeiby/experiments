@@ -25,8 +25,6 @@ export function TablePreview({ jsonModel }: { jsonModel: string }) {
                     JSON.parse(jsonModel)
                 );
 
-                console.log(metadata);
-
                 const newData = {
                     row: [] as string[],
                     header: [] as string[],
