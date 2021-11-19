@@ -1,7 +1,6 @@
 // Components
 import AppBarE, { IAppButton } from '../components/app-bar';
 import HomeIcon from '@material-ui/icons/Home';
-import ListExperiment from '../components/list-experiments';
 import { Routes } from '../utils/routes.config';
 
 // Librarys
@@ -9,6 +8,7 @@ import * as React from 'react';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import { Route } from 'react-router';
+import ListExperiment from '../components/list-experiments/ListExperiment';
 
 // Buttons
 const buttons: IAppButton[] = [

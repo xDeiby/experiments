@@ -8,7 +8,7 @@ import { Routes } from '../utils/routes.config';
 // Librarys
 import * as React from 'react';
 import { Route } from 'react-router';
-import LogExperiment from '../components/show-modifys';
+import LogExperiment from '../components/show-modifys/LogExperiment';
 
 // Buttons
 const buttons: IAppButton[] = [

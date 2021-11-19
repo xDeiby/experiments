@@ -4,12 +4,12 @@ import { Routes } from '../utils/routes.config';
 
 // Librarys
 import * as React from 'react';
-import CustomizedTables from '../components/export-experiment/table';
 import HomeIcon from '@material-ui/icons/Home';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
 import { Route } from 'react-router';
+import CustomizedTables from '../components/export-experiment/table/CustomizedTables';
 
 // Buttons
 const buttons: IAppButton[] = [
