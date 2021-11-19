@@ -1,6 +1,6 @@
 // Components
-import Loading from '../../loading';
-import Welcome from '../welcome';
+import Loading from '../../loading/Loading';
+import Welcome from '../welcome/Welcome';
 import StepperExperiment from '../stepper';
 import { ApplicationState } from '../../../store';
 import { loadExperimentElementsRequest } from '../../../store/ducks/executionExperiment';

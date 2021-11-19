@@ -6,7 +6,7 @@ import { backStep, nextStep } from '../../../../store/ducks/stepper';
 import ModalQuiz from '../../../modals/modal-info/ModalQuiz';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { SectionSelect } from '../select-section';
+import { SectionSelect } from '../select-section/SectionSelect';
 import { sectionComplete } from '../../../../utils/modules/sectionComplete';
 
 const useStyles = makeStyles((theme: Theme) =>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IFormElements } from '../../../model/experiment/IExecutionExperiment';
 import SectionView from '../../experiment-manage/survey-and-quiz/section/SectionView';
-import QuestionForm from '../question';
+import QuestionForm from '../question/QuestionForm';
 
 export interface ISurveyFormViewProps {
     survey: IFormElements;

@@ -1,12 +1,12 @@
 // Components
 import SectionView from '../../experiment-manage/survey-and-quiz/section/SectionView';
-import QuestionForm from '../question';
-import TimerQuiz from '../../timer-quiz';
+import QuestionForm from '../question/QuestionForm';
+import TimerQuiz from '../../timer-quiz/TimerQuiz';
 
 // Librarys
 import * as React from 'react';
 import { Button, Typography } from '@material-ui/core';
-import { SectionSelect } from '../../execution-experiment/stepper/select-section';
+import { SectionSelect } from '../../execution-experiment/stepper/select-section/SectionSelect';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '../../../store';
 import { QuestionResult } from '../../results-quiz/QuestionResult';

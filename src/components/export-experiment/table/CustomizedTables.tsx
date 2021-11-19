@@ -6,7 +6,7 @@ import {
     GridToolbarExport,
 } from '@material-ui/data-grid';
 import api from '../../../utils/api.config';
-import DatePicker from '../../date-picker';
+import DatePicker from '../../date-picker/DatePicker';
 import { CustomSelect } from '../select/CustomSelect';
 import { useDispatch, useSelector } from 'react-redux';
 import { ApplicationState } from '../../../store';
@@ -142,7 +142,6 @@ export default function CustomizedTables() {
                     changeModel={(id: string) => {
                         setFilters((prev) => ({ ...prev, model: id }));
                         getData(id);
-                        console.log('entre');
                     }}
                     model={filters.model}
                     options={models.data}

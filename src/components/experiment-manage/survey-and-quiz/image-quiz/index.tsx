@@ -5,7 +5,7 @@ import ImageQuizView from './ImageQuizView';
 import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '../../../../store';
-import Spinner from '../../../spinner';
+import Spinner from '../../../spinner/Spinner';
 
 export interface IImageQuizProps {
     quiz: ISection;

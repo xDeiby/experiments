@@ -1,9 +1,9 @@
 // Components
-import CardExperiment from '../card-experiment';
+import CardExperiment from '../card-experiment/CardExperiment';
 import CreateExperiment from '../modals/modal-create/CreateExperiment';
 import { ApplicationState } from '../../store';
 import { loadExperiments } from '../../store/ducks/experiment';
-import Loading from '../loading';
+import Loading from '../loading/Loading';
 
 // Librarys
 import * as React from 'react';

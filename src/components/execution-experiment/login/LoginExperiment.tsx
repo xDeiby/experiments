@@ -14,7 +14,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadExperiments } from '../../../store/ducks/experiment';
 import { ApplicationState } from '../../../store';
-import Loading from '../../loading';
+import Loading from '../../loading/Loading';
 import { IModelType } from '../../../model/experiment';
 
 const StyledContainer = styled.div`

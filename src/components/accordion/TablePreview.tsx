@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import * as React from 'react';
 import api from '../../utils/api.config';
-import Spinner from '../spinner';
+import Spinner from '../spinner/Spinner';
 
 export function TablePreview({ jsonModel }: { jsonModel: string }) {
     const [rows, setRows] = React.useState<string[]>([]);

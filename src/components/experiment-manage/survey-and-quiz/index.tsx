@@ -1,7 +1,7 @@
 // Components
-import Loading from '../../loading';
-import TooltipView from '../../tooltip';
-import LogModifys from '../../log-modifys';
+import Loading from '../../loading/Loading';
+import TooltipView from '../../tooltip/TooltipView';
+import LogModifys from '../../log-modifys/LogModifys';
 import { ApplicationState } from '../../../store';
 import { loadQuestions } from '../../../store/ducks/experiment-management/questions';
 import { loadSections } from '../../../store/ducks/experiment-management/sections';

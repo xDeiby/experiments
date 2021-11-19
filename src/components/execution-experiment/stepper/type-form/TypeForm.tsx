@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { ETypeSection } from '../../../../model/experiment/enum-types';
-import QuizFormView from '../../../form-manage/quiz';
-import SurveyFormView from '../../../form-manage/survey';
-import StepperButtons from '../buttons';
-import { SectionSelect } from '../select-section';
+import QuizFormView from '../../../form-manage/quiz/QuizFormView';
+import SurveyFormView from '../../../form-manage/survey/SurveyFormView';
+import StepperButtons from '../buttons/StepperButtons';
+import { SectionSelect } from '../select-section/SectionSelect';
 
 export default function TypeForm() {
     const { sectionElements } = SectionSelect();

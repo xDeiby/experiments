@@ -102,10 +102,8 @@ export default function CreateExperiment({
                                             .includes(e.target.value)
                                     ) {
                                         setNewModel(e.target.value);
-                                        console.log('entro');
                                     } else {
                                         setNewModel('');
-                                        console.log('no entro');
                                     }
                                 }}
                                 variant="outlined"

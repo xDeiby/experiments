@@ -1,5 +1,5 @@
 // Components
-import Loading from '../loading';
+import Loading from '../loading/Loading';
 import FormManagement from './survey-and-quiz';
 import { ApplicationState } from '../../store';
 import { loadRequestExperimentManage } from '../../store/ducks/experiment-management/experiment';

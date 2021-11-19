@@ -11,9 +11,10 @@ import ImageIcon from '@material-ui/icons/Image';
 
 import { Button, Divider, Typography } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { SectionSelect } from '../execution-experiment/stepper/select-section';
+import { SectionSelect } from '../execution-experiment/stepper/select-section/SectionSelect';
 import { nextSubStep } from '../../store/ducks/stepper';
 import { questionComplete } from '../../utils/modules/sectionComplete';
+import api from '../../utils/api.config';
 
 // Component
 export default function TimerQuiz({ onEndQuiz }) {
@@ -256,7 +257,10 @@ export default function TimerQuiz({ onEndQuiz }) {
                     variant="outlined"
                     color="primary"
                     onClick={() =>
-                        window.open(imageDetails.pathImage, '_blank')
+                        window.open(
+                            api.defaults.baseURL + '/' + imageDetails.pathImage,
+                            '_blank'
+                        )
                     }
                 >
                     Ver Modelo

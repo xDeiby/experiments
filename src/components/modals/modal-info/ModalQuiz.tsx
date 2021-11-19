@@ -26,6 +26,7 @@ import {
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import ImageIcon from '@material-ui/icons/Image';
+import api from '../../../utils/api.config';
 
 const styles = (theme: Theme) =>
     createStyles({
@@ -214,8 +215,11 @@ export default function ModalQuiz({
                                     }}
                                 >
                                     <img
-                                        loading="lazy"
-                                        src={imageDetails!.pathImage}
+                                        src={
+                                            api.defaults.baseURL +
+                                            '/' +
+                                            imageDetails!.pathImage
+                                        }
                                         width="400"
                                     />
                                 </div>
@@ -226,7 +230,9 @@ export default function ModalQuiz({
                                     color="primary"
                                     onClick={() =>
                                         window.open(
-                                            imageDetails!.pathImage,
+                                            api.defaults.baseURL +
+                                                '/' +
+                                                imageDetails!.pathImage,
                                             '_blank'
                                         )
                                     }

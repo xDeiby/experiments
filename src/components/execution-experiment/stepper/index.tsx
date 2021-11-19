@@ -13,8 +13,8 @@ import {
 } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { ApplicationState } from '../../../store';
-import ResultsView from '../results';
-import TypeForm from './type-form';
+import ResultsView from '../results/ResultsView';
+import TypeForm from './type-form/TypeForm';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

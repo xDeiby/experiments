@@ -4,6 +4,7 @@ import * as React from 'react';
 import { IImageModel } from '../../../../model/experiment';
 import ModalImage from '../../../modals/modal-create/ModalImage';
 import SettingsIcon from '@material-ui/icons/Settings';
+import api from '../../../../utils/api.config';
 
 export interface IImageQuizViewProps {
     image: IImageModel;
@@ -32,8 +33,7 @@ export default function ImageQuizView({ image }: IImageQuizViewProps) {
             }}
         >
             <img
-                loading="lazy"
-                src={image.pathImage}
+                src={api.defaults.baseURL + '/' + image.pathImage}
                 height="150"
                 style={{ display: 'block' }}
             />

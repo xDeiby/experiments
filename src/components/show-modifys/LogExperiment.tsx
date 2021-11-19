@@ -14,7 +14,7 @@ import { useParams } from 'react-router';
 import api from '../../utils/api.config';
 import { ILogChanges } from '../../model/experiment';
 import { AxiosResponse } from 'axios';
-import Loading from '../loading';
+import Loading from '../loading/Loading';
 import { ETypeChange } from '../../model/experiment/enum-types';
 
 const useStyles = makeStyles((theme) => ({

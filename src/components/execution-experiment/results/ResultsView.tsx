@@ -13,7 +13,7 @@ import {
     makeStyles,
     IconButton,
 } from '@material-ui/core';
-import { SectionSelect } from '../stepper/select-section';
+import { SectionSelect } from '../stepper/select-section/SectionSelect';
 import { ETypeSection } from '../../../model/experiment/enum-types';
 import { calculateAllPoints } from '../../../utils/modules/calculatePoints';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +21,7 @@ import { ApplicationState } from '../../../store';
 import { modifyLocalExecutionExperimnt } from '../../../store/ducks/executionExperiment';
 import { IExecutionExperiment } from '../../../model/experiment/IExecutionExperiment';
 import api from '../../../utils/api.config';
-import Spinner from '../../spinner';
+import Spinner from '../../spinner/Spinner';
 
 // Model props
 export interface IResultsViewProps {}
