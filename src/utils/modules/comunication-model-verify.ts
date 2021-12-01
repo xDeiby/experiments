@@ -9,11 +9,18 @@ export default function communicationModelVerify(value: any): boolean {
             Array.isArray(value?.communicativeInteractions) &&
             Array.isArray(value?.precedenceRelations);
 
-        if (validation) {
-            return false;
+        console.log(
+            typeof value.additional_attributes,
+            Array.isArray(value.additional_attributes)
+        );
+
+        if (validation && typeof value.additional_attributes === 'object') {
+            console.log('entra');
+
+            return Array.isArray(value.additional_attributes);
         }
 
-        return true;
+        return !validation;
     } catch (error) {
         return true;
     }
