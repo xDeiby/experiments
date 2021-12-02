@@ -17,6 +17,7 @@ import {
 } from '../../../store/ducks/experiment-management/images-model';
 import communicationModelVerify from '../../../utils/modules/comunication-model-verify';
 import { TablePreview } from '../../accordion/TablePreview';
+import NoImage from '../../../utils/images/noimage.png';
 
 export interface IModalImageProps {
     quiz?: ISection;
@@ -187,15 +188,15 @@ export default function ModalImage({
                         <figure style={{ flex: '1 1 0' }}>
                             <img
                                 src={
-                                    existImage && !image
+                                    (existImage && !image
                                         ? existImage.pathImage
-                                        : image?.url
+                                        : image?.url) || NoImage
                                 }
                                 style={{
                                     display: 'block',
                                     width: '100%',
                                     margin: 'auto',
-                                    height: '100%',
+                                    maxHeight: '100%',
                                     objectFit: 'cover',
                                 }}
                             />
